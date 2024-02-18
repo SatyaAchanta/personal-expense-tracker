@@ -19,25 +19,25 @@ class Homepage extends StatelessWidget {
           return Scaffold(
             body: IndexedStack(
               index: controller.currentIndex,
-              children: const [
+              children: [
                 Dashboard(),
                 ExpenseList(),
                 ExpenseForm(),
               ],
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: controller.currentIndex,
-              onTap: controller.changeIndex,
-              items: const [
-                BottomNavigationBarItem(
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: controller.currentIndex,
+              onDestinationSelected: controller.changeIndex,
+              destinations: const [
+                NavigationDestination(
                   icon: Icon(Icons.home),
                   label: 'Home',
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: Icon(Icons.list),
                   label: 'Expenses',
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: Icon(Icons.add),
                   label: 'Add Expense',
                 ),
