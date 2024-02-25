@@ -26,7 +26,7 @@ class Routes {
     ),
     GetPage(
       name: expenses,
-      page: () => ExpenseList(),
+      page: () => const ExpenseList(),
     ),
     GetPage(
       name: addExpense,

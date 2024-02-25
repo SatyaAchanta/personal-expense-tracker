@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'routes/routes.dart';
+import 'common/cupertino/cupertino_main.dart';
+import 'common/material/material_main.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: Routes.getHomeRoute(),
-      getPages: Routes.routes,
-    );
+    return Theme.of(context).platform == TargetPlatform.iOS
+        ? const MyCupertinoApp()
+        : const MyMaterialApp();
   }
 }

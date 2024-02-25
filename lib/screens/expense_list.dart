@@ -1,36 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../common/cupertino/list_builder.dart';
+import '../common/material/list_builder.dart';
 import '../controllers/expense.dart';
 
 class ExpenseList extends StatelessWidget {
   const ExpenseList({super.key});
 
-  // final controller = Get.put(ExpenseController());
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Expenses'),
-      ),
-      body: GetX<ExpenseController>(
+    bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    return SafeArea(
+      child: GetX<ExpenseController>(
         builder: (controller) {
-          return ListView.builder(
-            itemCount: controller.expenses.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(controller.expenses[index]['title']),
-                subtitle: Text(controller.expenses[index]['price'].toString()),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    controller.removeExpense(index);
-                  },
-                ),
-              );
-            },
-          );
+          return controller.getExpensesAsModel().isEmpty
+              ? const Center(
+                  child: Text('No expenses yet!'),
+                )
+              : isIOS
+                  ? MyCupertinoListBuilder(
+                      expenses: controller.getExpensesAsModel(),
+                      removeExpense: controller.removeExpense,
+                    )
+                  : MyMaterialListBuilder(
+                      expenses: controller.getExpensesAsModel(),
+                      removeExpense: controller.removeExpense,
+                    );
         },
       ),
     );

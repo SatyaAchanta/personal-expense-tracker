@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/common/cupertino/app_scaffold.dart';
+import 'package:personal_expense_tracker/common/material/app_scaffold.dart';
 
 import '../controllers/dashboard.dart';
-import 'dashboard.dart';
-import 'expense_form.dart';
-import 'expense_list.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});
@@ -13,39 +12,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GetBuilder<DashboardController>(
-        builder: (controller) {
-          return Scaffold(
-            body: IndexedStack(
-              index: controller.currentIndex,
-              children: [
-                Dashboard(),
-                ExpenseList(),
-                ExpenseForm(),
-              ],
-            ),
-            bottomNavigationBar: NavigationBar(
-              selectedIndex: controller.currentIndex,
-              onDestinationSelected: controller.changeIndex,
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.list),
-                  label: 'Expenses',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.add),
-                  label: 'Add Expense',
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+    var isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    return isIOS ? MyCupertinoScaffold() : const MyMaterialScaffold();
   }
 }

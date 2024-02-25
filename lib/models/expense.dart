@@ -20,7 +20,7 @@ class Expense {
       id: json['id'],
       title: json['title'],
       amount: json['amount'],
-      date: DateTime.parse(json['date']),
+      date: json['date'],
       place: json['place'],
       description: json['description'],
     );
