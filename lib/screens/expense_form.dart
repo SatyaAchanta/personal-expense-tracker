@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../common/cupertino/form.dart';
 import '../common/material/form.dart';
 import '../controllers/expense.dart';
+import '../utils/screen.dart';
 
 class ExpenseForm extends StatelessWidget {
   ExpenseForm({super.key});
@@ -11,23 +12,14 @@ class ExpenseForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData mediaQuery = MediaQuery.of(context);
-    Size deviceSize = mediaQuery.size;
+    Size screenSize = getScreenSize(context);
     bool isiOS = Theme.of(context).platform == TargetPlatform.iOS;
 
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                top: deviceSize.height * 0.05,
-                left: deviceSize.width * 0.01,
-                right: deviceSize.width * 0.01,
-              ),
-              child: isiOS ? MyCupertinoForm() : MyMaterialForm(),
-            ),
-          ],
+        child: Container(
+          margin: EdgeInsets.only(top: screenSize.height * 0.01),
+          child: isiOS ? MyCupertinoForm() : MyMaterialForm(),
         ),
       ),
     );

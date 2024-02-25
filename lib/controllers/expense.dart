@@ -26,4 +26,9 @@ class ExpenseController extends GetxController {
   List<Expense> getExpensesAsModel() {
     return expenses.map((e) => Expense.fromJson(e)).toList();
   }
+
+  Expense findExpense(String expenseId) {
+    return Expense.fromJson(
+        expenses.firstWhere((expense) => expense['id'] == expenseId));
+  }
 }

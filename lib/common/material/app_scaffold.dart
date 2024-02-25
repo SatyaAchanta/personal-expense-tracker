@@ -15,6 +15,7 @@ class MyMaterialScaffold extends StatelessWidget {
       child: GetBuilder<DashboardController>(
         builder: (controller) {
           return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: IndexedStack(
               index: controller.currentIndex,
               children: [
@@ -24,6 +25,7 @@ class MyMaterialScaffold extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: NavigationBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               selectedIndex: controller.currentIndex,
               onDestinationSelected: controller.changeIndex,
               destinations: const [

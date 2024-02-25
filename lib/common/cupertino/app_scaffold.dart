@@ -24,42 +24,39 @@ class MyCupertinoScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GetBuilder<DashboardController>(
-        builder: (controller) {
-          return CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
+    return GetBuilder<DashboardController>(
+      builder: (controller) {
+        return CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   activeIcon: Icon(Icons.home_filled),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add),
-                ),
-              ],
-              currentIndex: controller.currentIndex,
-              onTap: controller.changeIndex,
-            ),
-            tabBuilder: (context, index) {
-              return CupertinoTabView(
-                builder: (context) {
-                  return CupertinoPageScaffold(
-                    navigationBar: CupertinoNavigationBar(
-                      middle: Text(_titles[index]),
-                      backgroundColor: CupertinoColors.systemBackground,
-                    ),
-                    child: _pages[index],
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.list), label: 'Expenses'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.add), label: 'Add Expense'),
+            ],
+            currentIndex: controller.currentIndex,
+            onTap: controller.changeIndex,
+          ),
+          tabBuilder: (context, index) {
+            return CupertinoTabView(
+              builder: (context) {
+                return CupertinoPageScaffold(
+                  backgroundColor: CupertinoColors.systemBackground,
+                  navigationBar: const CupertinoNavigationBar(
+                    border: null,
+                    // middle: Text(_titles[index]),
+                  ),
+                  child: _pages[index],
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

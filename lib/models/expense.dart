@@ -5,6 +5,8 @@ class Expense {
   final DateTime date;
   final String description;
   final String place;
+  final String category;
+  final bool isFlagged;
 
   Expense({
     required this.id,
@@ -13,6 +15,8 @@ class Expense {
     required this.date,
     required this.place,
     this.description = '',
+    this.category = '',
+    this.isFlagged = false,
   });
 
   factory Expense.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,8 @@ class Expense {
       date: json['date'],
       place: json['place'],
       description: json['description'],
+      category: json['category'],
+      isFlagged: json['isFlagged'],
     );
   }
 
@@ -34,6 +40,8 @@ class Expense {
       'date': date.toIso8601String(),
       'place': place,
       'description': description,
+      'category': category,
+      'isFlagged': isFlagged,
     };
   }
 }

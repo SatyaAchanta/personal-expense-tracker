@@ -1,42 +1,48 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../models/expense.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:logging/logging.dart';
+import 'package:personal_expense_tracker/routes/routes.dart';
+import '../../models/expense.dart';
+
+import '../../screens/expense_screen.dart';
+import '../../utils/screen.dart';
 
 class MyCupertinoListBuilder extends StatelessWidget {
-  const MyCupertinoListBuilder(
+  MyCupertinoListBuilder(
       {super.key, required this.expenses, required this.removeExpense});
 
   final List<Expense> expenses;
   final Function removeExpense;
+  final logger = Logger('MyCupertinoListBuilder');
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = getScreenSize(context);
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (ctx, index) {
         return Container(
-          margin: const EdgeInsets.symmetric(vertical: 12.0),
+          margin: EdgeInsets.symmetric(vertical: screenSize.height * 0.01),
           child: CupertinoListTile(
             title: Text(
               expenses[index].title,
-              style: const TextStyle(fontSize: 20.0),
+              style: TextStyle(fontSize: screenSize.width * 0.05),
             ),
             subtitle: Text(
               DateFormat('MMM, d, y').format(expenses[index].date.toLocal()),
             ),
             onTap: () => {
-              Get.snackbar(
-                'Expense Details',
-                'Title: ${expenses[index].title}\nPrice: ${expenses[index].amount}',
-                colorText: CupertinoColors.systemBackground,
-                snackPosition: SnackPosition.BOTTOM,
+              Get.to(
+                ExpenseScreen(
+                  expenseId: expenses[index].id,
+                ),
               ),
             },
             trailing: Text(
               "\$${expenses[index].amount.toInt().toString()}",
-              style: const TextStyle(
-                fontSize: 24.0,
+              style: TextStyle(
+                fontSize: screenSize.width * 0.06,
               ),
             ),
           ),
