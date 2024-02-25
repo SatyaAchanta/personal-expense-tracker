@@ -12,6 +12,20 @@ class MyCupertinoForm extends StatelessWidget {
 
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final myFocusNode = FocusNode();
+  final List<String> categories = [
+    'food',
+    'clothing',
+    'electronics',
+    'home',
+    'travel',
+    'entertainment',
+  ];
+
+  String getRandomCategory() {
+    Random random = Random();
+    int index = random.nextInt(categories.length);
+    return categories[index];
+  }
 
   final logger = Logger('MyCupertinoForm');
   final ExpenseController expenseController = Get.put(ExpenseController());
@@ -132,13 +146,13 @@ class MyCupertinoForm extends StatelessWidget {
                 // }
                 expenseController.addExpense({
                   'id': const Uuid().v4(),
-                  'title': "Sample ${Random().nextInt(10).toString()}",
+                  'title': "Sample ${Random().nextInt(100).toString()}",
                   'place': "Home",
                   'amount': 12.toDouble(),
                   'date': DateTime.now(),
                   'description': 'testing',
                   'isFlagged': false,
-                  'category': 'food',
+                  'category': getRandomCategory(),
                 });
               },
             ),

@@ -23,7 +23,9 @@ class MyCupertinoListBuilder extends StatelessWidget {
       itemCount: expenses.length,
       itemBuilder: (ctx, index) {
         return Container(
-          margin: EdgeInsets.symmetric(vertical: screenSize.height * 0.01),
+          margin: EdgeInsets.symmetric(
+              vertical: screenSize.height * 0.01,
+              horizontal: screenSize.width * 0.02),
           child: CupertinoListTile(
             title: Text(
               expenses[index].title,
@@ -43,6 +45,7 @@ class MyCupertinoListBuilder extends StatelessWidget {
               "\$${expenses[index].amount.toInt().toString()}",
               style: TextStyle(
                 fontSize: screenSize.width * 0.06,
+                color: CupertinoColors.systemBlue,
               ),
             ),
           ),
