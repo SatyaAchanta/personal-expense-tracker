@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/screens/profile.dart';
 
 import '../../controllers/dashboard.dart';
 import '../../screens/dashboard.dart';
@@ -14,13 +15,10 @@ class MyCupertinoScaffold extends StatelessWidget {
     const Dashboard(),
     const ExpenseList(),
     ExpenseForm(),
+    const Profile(),
   ];
 
-  final List<String> _titles = [
-    'Home',
-    'Expenses',
-    'Add Expense',
-  ];
+  final List<String> _titles = ['Home', 'Expenses', 'Add Expense', 'profile'];
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +35,8 @@ class MyCupertinoScaffold extends StatelessWidget {
                   icon: Icon(Icons.list), label: 'Expenses'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add), label: 'Add Expense'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_box), label: 'Profile'),
             ],
             currentIndex: controller.currentIndex,
             onTap: controller.changeIndex,

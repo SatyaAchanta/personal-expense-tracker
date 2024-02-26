@@ -15,6 +15,7 @@ class MyCupertinoListBuilder extends StatelessWidget {
   final List<Expense> expenses;
   final Function removeExpense;
   final logger = Logger('MyCupertinoListBuilder');
+  final DateFormat format = DateFormat("MM/dd/yyyy");
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class MyCupertinoListBuilder extends StatelessWidget {
               style: TextStyle(fontSize: screenSize.width * 0.05),
             ),
             subtitle: Text(
-              DateFormat('MMM, d, y').format(expenses[index].date.toLocal()),
+              format.format(expenses[index].date),
             ),
             onTap: () => {
               Get.to(
@@ -42,7 +43,7 @@ class MyCupertinoListBuilder extends StatelessWidget {
               ),
             },
             trailing: Text(
-              "\$${expenses[index].amount.toInt().toString()}",
+              "\$${expenses[index].amount.toStringAsFixed(2)}",
               style: TextStyle(
                 fontSize: screenSize.width * 0.06,
                 color: CupertinoColors.systemBlue,

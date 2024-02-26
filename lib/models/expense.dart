@@ -37,7 +37,7 @@ class Expense {
       'id': id,
       'title': title,
       'amount': amount,
-      'date': date.toIso8601String(),
+      'date': date,
       'place': place,
       'description': description,
       'category': category,

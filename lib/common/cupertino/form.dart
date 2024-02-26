@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
@@ -35,6 +36,7 @@ class MyCupertinoForm extends StatelessWidget {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
+  DateFormat format = DateFormat("MM/dd/yyyy");
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,8 @@ class MyCupertinoForm extends StatelessWidget {
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter a price' : null,
                 placeholder: 'Total Price',
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 controller: priceController,
               ),
             ),
@@ -98,8 +101,8 @@ class MyCupertinoForm extends StatelessWidget {
               child: CupertinoTextFormFieldRow(
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter a date' : null,
-                placeholder: 'Date of purchase',
-                keyboardType: TextInputType.datetime,
+                placeholder: 'MM/DD/YYYY',
+                keyboardType: TextInputType.text,
                 controller: dateController,
               ),
             ),
@@ -109,7 +112,7 @@ class MyCupertinoForm extends StatelessWidget {
             child: CupertinoFormRow(
               prefix: const Text('Category'),
               child: CupertinoTextFormFieldRow(
-                placeholder: 'Optional: Assign this purchase to a category',
+                placeholder: 'Category of the purchase',
                 keyboardType: TextInputType.multiline,
                 controller: categoryController,
               ),
@@ -137,7 +140,7 @@ class MyCupertinoForm extends StatelessWidget {
                 //     'title': titleController.text,
                 //     'place': placeController.text,
                 //     'amount': double.parse(priceController.text),
-                //     'date': DateTime.parse(dateController.text),
+                //     'date': format.parse(dateController.text),
                 //     'description': descriptionController.text,
                 //     'isFlagged': false,
                 //     'category': 'food',
@@ -146,13 +149,13 @@ class MyCupertinoForm extends StatelessWidget {
                 // }
                 expenseController.addExpense({
                   'id': const Uuid().v4(),
-                  'title': "Sample ${Random().nextInt(100).toString()}",
-                  'place': "Home",
-                  'amount': 12.toDouble(),
-                  'date': DateTime.now(),
-                  'description': 'testing',
+                  'title': 'Satya Testing',
+                  'place': 'Home',
+                  'amount': double.parse('12.45'),
+                  'date': format.parse('02/24/2024'),
+                  'description': 'Sample Description for purchase',
                   'isFlagged': false,
-                  'category': getRandomCategory(),
+                  'category': 'food',
                 });
               },
             ),

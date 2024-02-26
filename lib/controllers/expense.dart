@@ -31,4 +31,10 @@ class ExpenseController extends GetxController {
     return Expense.fromJson(
         expenses.firstWhere((expense) => expense['id'] == expenseId));
   }
+
+  Expense updateExpense(Expense expense) {
+    final index = expenses.indexWhere((e) => e['id'] == expense.id);
+    expenses[index] = expense.toJson();
+    return expense;
+  }
 }

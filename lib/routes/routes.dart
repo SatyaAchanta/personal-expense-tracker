@@ -5,6 +5,7 @@ import '../screens/expense_screen.dart';
 import '../screens/expense_form.dart';
 import '../screens/expense_list.dart';
 import '../screens/home.dart';
+import '../screens/profile.dart';
 
 class Routes {
   static const String home = '/';
@@ -12,11 +13,13 @@ class Routes {
   static const String dashboard = '/dashboard';
   static const String expenses = '/expenses';
   static const String expense = '/expense';
+  static const String profile = '/profile';
 
   static String getHomeRoute() => home;
   static String getExpenses() => expenses;
   static String newExpense() => addExpense;
   static String getExpense() => expense;
+  static String getProfile() => profile;
 
   static List<GetPage> routes = [
     GetPage(
@@ -40,6 +43,10 @@ class Routes {
       page: () => ExpenseScreen(
         expenseId: '',
       ),
+    ),
+    GetPage(
+      name: profile,
+      page: () => const Profile(),
     ),
   ];
 }

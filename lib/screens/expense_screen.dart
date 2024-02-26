@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
-import 'package:personal_expense_tracker/utils/screen.dart';
 
-import '../controllers/expense.dart';
+import '../../controllers/expense.dart';
 import '../models/expense.dart';
 
 class ExpenseScreen extends StatelessWidget {
@@ -12,15 +11,24 @@ class ExpenseScreen extends StatelessWidget {
 
   final String expenseId;
 
-  final ExpenseController expenseController = Get.put(ExpenseController());
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static final myFocusNode = FocusNode();
+
   final logger = Logger('ExpenseScreen');
+  final ExpenseController expenseController = Get.put(ExpenseController());
+
+  final DateFormat format = DateFormat("MM/dd/yyyy");
 
   @override
   Widget build(BuildContext context) {
-    Expense currentExpense = expenseController.findExpense(expenseId);
-    Size screenSize = getScreenSize(context);
+    String? title;
+    double? amount;
+    String? place;
+    String? date;
+    String? category;
+    String? description;
+    final currentExpense = expenseController.findExpense(expenseId);
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoColors.systemBackground,
       navigationBar: CupertinoNavigationBar(
         border: null,
         middle: Text(currentExpense.title),
@@ -43,81 +51,129 @@ class ExpenseScreen extends StatelessWidget {
           ),
         ),
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                padding: EdgeInsets.all(screenSize.height * 0.02),
-                margin: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.02,
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: screenSize.height * 0.02),
-                      child: Text(
-                        '\$${currentExpense.amount.toString()}',
-                        style: const TextStyle(
-                            fontSize: 56, fontWeight: FontWeight.bold),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(top: 16.0),
+            child: Form(
+              key: _formKey,
+              child: CupertinoFormSection.insetGrouped(
+                backgroundColor: CupertinoColors.systemBackground,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Name'),
+                      child: CupertinoTextFormFieldRow(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter a name' : null,
+                        placeholder: 'Name of the purchase',
+                        keyboardType: TextInputType.text,
+                        initialValue: currentExpense.title,
+                        onSaved: (newValue) => title = newValue,
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(
-                        'Date: ${DateFormat('MM/dd/yyyy').format(currentExpense.date.toLocal())}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.clip,
-                        ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Price'),
+                      child: CupertinoTextFormFieldRow(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter a price' : null,
+                        placeholder: 'Total Price',
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true, signed: false),
+                        initialValue: currentExpense.amount.toString(),
+                        onSaved: (newValue) => amount = double.parse(newValue!),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(
-                        'Place: ${currentExpense.place}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.clip,
-                        ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Place'),
+                      child: CupertinoTextFormFieldRow(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter a place' : null,
+                        placeholder: 'Place of purchase',
+                        keyboardType: TextInputType.text,
+                        initialValue: currentExpense.place,
+                        onSaved: (newValue) => place = newValue,
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(
-                        'Notes: ${currentExpense.description}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          overflow: TextOverflow.clip,
-                        ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Date'),
+                      child: CupertinoTextFormFieldRow(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter a date' : null,
+                        placeholder: 'Date of purchase',
+                        keyboardType: TextInputType.datetime,
+                        initialValue: format.format(currentExpense.date),
+                        onSaved: (newValue) => date = newValue,
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 16.0),
-                      decoration: BoxDecoration(
-                        color: CupertinoColors.systemTeal,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Category: ${currentExpense.category}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.clip,
-                        ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Category'),
+                      child: CupertinoTextFormFieldRow(
+                        placeholder: 'Optional',
+                        keyboardType: TextInputType.multiline,
+                        initialValue: currentExpense.category,
+                        onSaved: (newValue) => category = newValue,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: CupertinoFormRow(
+                      prefix: const Text('Notes'),
+                      child: CupertinoTextFormFieldRow(
+                        placeholder: 'Add any notes for this purchase',
+                        keyboardType: TextInputType.multiline,
+                        initialValue: currentExpense.description,
+                        onSaved: (newValue) => description = newValue,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 32.0, horizontal: 8.0),
+                    child: CupertinoButton.filled(
+                      child: const Text('Update Expense'),
+                      onPressed: () {
+                        _formKey.currentState!.save();
+                        if (_formKey.currentState!.validate()) {
+                          expenseController.updateExpense(Expense(
+                            id: currentExpense.id,
+                            title: title!,
+                            amount: amount!,
+                            place: place!,
+                            date: format.parse(date!),
+                            category: category!,
+                            description: description!,
+                            isFlagged: false,
+                          ));
+                          Get.back();
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: screenSize.height * 0.1,
-            ),
-          ],
+          ),
         ),
       ),
     );
