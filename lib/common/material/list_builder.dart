@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
 
 import '../../models/expense.dart';
+import '../../screens/expense_screen.dart';
 import '../../utils/screen.dart';
 
 class MyMaterialListBuilder extends StatelessWidget {
-  const MyMaterialListBuilder(
+  MyMaterialListBuilder(
       {super.key, required this.expenses, required this.removeExpense});
 
   final List<Expense> expenses;
   final Function removeExpense;
+
+  final logger = Logger('MyCupertinoListBuilder');
+  final DateFormat format = DateFormat("MM/dd/yyyy");
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +28,12 @@ class MyMaterialListBuilder extends StatelessWidget {
             expenses[index].title,
             style: TextStyle(fontSize: screenSize.width * 0.05),
           ),
-          subtitle: Text(
-              DateFormat('MMM, d, y').format(expenses[index].date.toLocal())),
+          subtitle: Text(format.format(expenses[index].date)),
           onTap: () => {
-            Get.snackbar(
-              'Expense Details',
-              'Title: ${expenses[index].title}\nPrice: ${expenses[index].amount}',
+            Get.to(
+              ExpenseScreen(
+                expenseId: expenses[index].id,
+              ),
             ),
           },
           trailing: Text(

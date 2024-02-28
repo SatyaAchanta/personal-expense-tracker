@@ -43,16 +43,20 @@ class MyCupertinoForm extends StatelessWidget {
     return Form(
       key: _formKey,
       child: CupertinoFormSection.insetGrouped(
+        backgroundColor: CupertinoColors.systemBackground.resolveFrom(context),
+        decoration: BoxDecoration(
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+        ),
         header: const Center(
           child: Text(
             'Add Expense',
             style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: CupertinoColors.systemBlue),
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: CupertinoColors.systemBlue,
+            ),
           ),
         ),
-        backgroundColor: CupertinoColors.systemBackground,
         children: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),

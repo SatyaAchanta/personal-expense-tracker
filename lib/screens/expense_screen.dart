@@ -58,6 +58,9 @@ class ExpenseScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: CupertinoFormSection.insetGrouped(
+                decoration: BoxDecoration(
+                  color: CupertinoColors.systemBackground.resolveFrom(context),
+                ),
                 backgroundColor: CupertinoColors.systemBackground,
                 children: [
                   Container(
