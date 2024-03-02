@@ -37,4 +37,10 @@ class ExpenseController extends GetxController {
     expenses[index] = expense.toJson();
     return expense;
   }
+
+  double getTotalExpenses() {
+    return expenses.fold(0, (previousValue, expense) {
+      return previousValue + expense['amount'];
+    });
+  }
 }

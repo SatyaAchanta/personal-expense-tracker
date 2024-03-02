@@ -19,7 +19,7 @@ class MyMaterialScaffold extends StatelessWidget {
             body: IndexedStack(
               index: controller.currentIndex,
               children: [
-                const Dashboard(),
+                Dashboard(),
                 const ExpenseList(),
                 ExpenseForm(),
               ],

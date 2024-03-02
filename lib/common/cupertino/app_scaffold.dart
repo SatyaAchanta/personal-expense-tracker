@@ -12,7 +12,7 @@ class MyCupertinoScaffold extends StatelessWidget {
   MyCupertinoScaffold({super.key});
 
   final List<Widget> _pages = [
-    const Dashboard(),
+    Dashboard(),
     const ExpenseList(),
     ExpenseForm(),
     const Profile(),
@@ -48,7 +48,6 @@ class MyCupertinoScaffold extends StatelessWidget {
                   backgroundColor: CupertinoColors.systemBackground,
                   navigationBar: const CupertinoNavigationBar(
                     border: null,
-                    // middle: Text(_titles[index]),
                   ),
                   child: _pages[index],
                 );

@@ -65,7 +65,9 @@ class ExpenseScreen extends StatelessWidget {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                      vertical: 8.0,
+                      horizontal: 4.0,
+                    ),
                     child: CupertinoFormRow(
                       prefix: const Text('Name'),
                       child: CupertinoTextFormFieldRow(
@@ -80,7 +82,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                        vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
                       prefix: const Text('Price'),
                       child: CupertinoTextFormFieldRow(
@@ -96,7 +98,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                        vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
                       prefix: const Text('Place'),
                       child: CupertinoTextFormFieldRow(
@@ -111,7 +113,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                        vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
                       prefix: const Text('Date'),
                       child: CupertinoTextFormFieldRow(
@@ -126,7 +128,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                        vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
                       prefix: const Text('Category'),
                       child: CupertinoTextFormFieldRow(
@@ -139,7 +141,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 8.0),
+                        vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
                       prefix: const Text('Notes'),
                       child: CupertinoTextFormFieldRow(
@@ -152,7 +154,7 @@ class ExpenseScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 32.0, horizontal: 8.0),
+                        vertical: 32.0, horizontal: 4.0),
                     child: CupertinoButton.filled(
                       child: const Text('Update Expense'),
                       onPressed: () {

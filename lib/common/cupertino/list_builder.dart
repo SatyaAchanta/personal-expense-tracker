@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logging/logging.dart';
-import 'package:personal_expense_tracker/routes/routes.dart';
 import '../../models/expense.dart';
 
 import '../../screens/expense_screen.dart';

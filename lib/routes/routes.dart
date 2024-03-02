@@ -28,7 +28,7 @@ class Routes {
     ),
     GetPage(
       name: dashboard,
-      page: () => const Dashboard(),
+      page: () => Dashboard(),
     ),
     GetPage(
       name: expenses,
