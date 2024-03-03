@@ -44,7 +44,7 @@ class MyCupertinoListBuilder extends StatelessWidget {
             trailing: Text(
               "\$${expenses[index].amount.toStringAsFixed(2)}",
               style: TextStyle(
-                fontSize: screenSize.width * 0.06,
+                fontSize: screenSize.width * 0.05,
                 color: CupertinoColors.systemBlue,
               ),
             ),

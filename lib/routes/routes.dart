@@ -46,7 +46,7 @@ class Routes {
     ),
     GetPage(
       name: profile,
-      page: () => const Profile(),
+      page: () => Profile(),
     ),
   ];
 }

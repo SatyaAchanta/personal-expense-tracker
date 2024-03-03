@@ -71,6 +71,7 @@ class MyCupertinoForm extends StatelessWidget {
                 controller: titleController,
                 placeholder: 'Name of the purchase',
                 keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
               ),
             ),
           ),
