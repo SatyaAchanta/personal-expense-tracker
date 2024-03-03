@@ -14,12 +14,14 @@ class Routes {
   static const String expenses = '/expenses';
   static const String expense = '/expense';
   static const String profile = '/profile';
+  static const String categoryExpenses = '/category-expenses';
 
   static String getHomeRoute() => home;
   static String getExpenses() => expenses;
   static String newExpense() => addExpense;
   static String getExpense() => expense;
   static String getProfile() => profile;
+  static String getCategoryExpenses() => categoryExpenses;
 
   static List<GetPage> routes = [
     GetPage(
@@ -47,6 +49,10 @@ class Routes {
     GetPage(
       name: profile,
       page: () => Profile(),
+    ),
+    GetPage(
+      name: categoryExpenses,
+      page: () => const ExpenseList(),
     ),
   ];
 }

@@ -43,4 +43,27 @@ class ExpenseController extends GetxController {
       return previousValue + expense['amount'];
     });
   }
+
+  List<MapEntry<String, double>> groupExpensesByCategory() {
+    final groupedExpenses = <String, double>{};
+
+    for (var expense in expenses) {
+      final category = expense['category'];
+      final amount = expense['amount'];
+      if (groupedExpenses.containsKey(category)) {
+        groupedExpenses[category] = groupedExpenses[category]! + amount;
+      } else {
+        groupedExpenses[category] = amount;
+      }
+    }
+
+    return groupedExpenses.entries.toList();
+  }
+
+  List<Expense> getExpensesByCategory(String category) {
+    return expenses
+        .where((expense) => expense['category'] == category)
+        .map((e) => Expense.fromJson(e))
+        .toList();
+  }
 }

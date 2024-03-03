@@ -15,7 +15,7 @@ class Expense {
     required this.date,
     required this.place,
     this.description = '',
-    this.category = '',
+    this.category = 'Others',
     this.isFlagged = false,
   });
 

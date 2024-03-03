@@ -61,7 +61,12 @@ class Profile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: null,
                   ),
-                  header: const Text("Budget Settings"),
+                  header: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text("Budget Settings"),
+                    ),
+                  ),
                   children: <Widget>[
                     CupertinoListTile(
                       title: const Text("Budget"),
@@ -93,7 +98,7 @@ class Profile extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.025,
+                  vertical: screenSize.height * 0.01,
                 ),
                 width: screenSize.width,
                 child: CupertinoListSection.insetGrouped(
@@ -102,7 +107,12 @@ class Profile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     border: null,
                   ),
-                  header: const Text("About us"),
+                  header: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text("About us"),
+                    ),
+                  ),
                   children: const <Widget>[
                     CupertinoListTile(
                       title: Text("Developer"),

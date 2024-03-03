@@ -25,7 +25,7 @@ class MyCupertinoForm extends StatelessWidget {
   String getRandomCategory() {
     Random random = Random();
     int index = random.nextInt(categories.length);
-    return categories[index];
+    return categories[index].toLowerCase();
   }
 
   final logger = Logger('MyCupertinoForm');
@@ -36,7 +36,7 @@ class MyCupertinoForm extends StatelessWidget {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
-  DateFormat format = DateFormat("MM/dd/yyyy");
+  final DateFormat format = DateFormat("MM/dd/yyyy");
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class MyCupertinoForm extends StatelessWidget {
                   'date': format.parse('02/24/2024'),
                   'description': 'Sample Description for purchase',
                   'isFlagged': false,
-                  'category': 'food',
+                  'category': getRandomCategory(),
                 });
               },
             ),
