@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/screens/profile.dart';
 
 import '../../controllers/dashboard.dart';
 import '../../screens/dashboard.dart';
@@ -22,12 +23,14 @@ class MyMaterialScaffold extends StatelessWidget {
                 Dashboard(),
                 const ExpenseList(),
                 ExpenseForm(),
+                Profile(),
               ],
             ),
             bottomNavigationBar: NavigationBar(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               selectedIndex: controller.currentIndex,
               onDestinationSelected: controller.changeIndex,
+              elevation: 1.5,
               destinations: const [
                 NavigationDestination(
                   icon: Icon(Icons.home),
@@ -40,6 +43,10 @@ class MyMaterialScaffold extends StatelessWidget {
                 NavigationDestination(
                   icon: Icon(Icons.add),
                   label: 'Add Expense',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.account_box),
+                  label: 'Profile',
                 ),
               ],
             ),

@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:personal_expense_tracker/common/material/text_field.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../controllers/expense.dart';
 
@@ -19,6 +21,21 @@ class MyMaterialForm extends StatelessWidget {
 
   final ExpenseController expenseController = Get.put(ExpenseController());
   final logger = Logger('MyMaterialForm');
+  final DateFormat format = DateFormat("MM/dd/yyyy");
+  final List<String> categories = [
+    'food',
+    'clothing',
+    'electronics',
+    'home',
+    'travel',
+    'entertainment',
+  ];
+
+  String getRandomCategory() {
+    Random random = Random();
+    int index = random.nextInt(categories.length);
+    return categories[index].toLowerCase();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +96,20 @@ class MyMaterialForm extends StatelessWidget {
                 //     'description': 'testing',
                 //   });
                 // }
+
                 expenseController.addExpense({
-                  'id': Random().nextInt(100).toString(),
-                  'title': "Sample ${Random().nextInt(10).toString()}",
-                  'place': "Home",
-                  'amount': 12.toDouble(),
-                  'date': DateTime.now(),
-                  'description': 'testing',
+                  'id': const Uuid().v4(),
+                  'title': 'Satya Testing',
+                  'place': 'Home',
+                  'amount': double.parse('12.45'),
+                  'date': DateTime.now().millisecondsSinceEpoch,
+                  'description': 'Sample Description for purchase',
+                  'isFlagged': false,
+                  'category': getRandomCategory(),
                 });
                 logger.info("Added Expense");
               },
-              child: const Text('Add Expense'),
+              child: const Text('Add'),
             ),
           ),
         ],

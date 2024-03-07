@@ -41,6 +41,7 @@ dependencies:
   logging: ^1.2.0
   uuid: ^4.3.3
   percent_indicator: ^4.2.3
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:

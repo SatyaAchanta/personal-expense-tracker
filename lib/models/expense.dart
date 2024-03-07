@@ -2,7 +2,7 @@ class Expense {
   final String id;
   final String title;
   final double amount;
-  final DateTime date;
+  final int date;
   final String description;
   final String place;
   final String category;

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:personal_expense_tracker/common/cupertino/categories_list.dart';
+import 'package:personal_expense_tracker/common/material/categories_list.dart';
 import 'package:personal_expense_tracker/controllers/expense.dart';
-import 'package:personal_expense_tracker/screens/category_expenses.dart';
 import 'package:personal_expense_tracker/utils/screen.dart';
 
 class Dashboard extends StatelessWidget {
@@ -13,6 +15,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = getScreenSize(context);
+    bool isIos = Theme.of(context).platform == TargetPlatform.iOS;
     Widget bodyContent = SingleChildScrollView(
       child: Center(
         child: Column(
@@ -32,22 +35,25 @@ class Dashboard extends StatelessWidget {
                 lineWidth: 10.0,
                 circularStrokeCap: CircularStrokeCap.butt,
                 percent: 0.7,
-                center: const Text(
+                center: Text(
                   '\$1000.00',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-                    color: CupertinoColors.systemBlue,
+                    color:
+                        isIos ? CupertinoColors.systemBlue : Colors.blueAccent,
                   ),
                 ),
                 footer: Container(
                   margin: EdgeInsets.only(top: screenSize.height * 0.025),
-                  child: const Text(
+                  child: Text(
                     '70% of \$1500 Budget Used',
                     style: TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.bold,
-                      color: CupertinoColors.systemBlue,
+                      color: isIos
+                          ? CupertinoColors.systemBlue
+                          : Colors.blueAccent,
                     ),
                   ),
                 ),
@@ -60,47 +66,12 @@ class Dashboard extends StatelessWidget {
               ),
               child: Obx(
                 () => expenseController.groupExpensesByCategory().isNotEmpty
-                    ? CupertinoListSection.insetGrouped(
-                        backgroundColor: CupertinoColors.systemBackground,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: null,
-                        ),
-                        header: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Text(
-                              "Expenses By Categories",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        children: expenseController
-                            .groupExpensesByCategory()
-                            .map((entry) {
-                          return CupertinoListTile(
-                            title: Text(
-                              entry.key.toUpperCase().capitalizeFirst!,
-                              style: const TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            additionalInfo:
-                                Text('\$${entry.value.toStringAsFixed(2)}'),
-                            trailing: const CupertinoListTileChevron(),
-                            onTap: () => {
-                              Get.to(
-                                CategoryExpenses(
-                                  category: entry.key,
-                                ),
-                              )
-                            },
-                          );
-                        }).toList(),
-                      )
+                    ? isIos
+                        ? MyCupertinoCategoriesList(
+                            expenseController: expenseController)
+                        : MyMaterialCategoriesList(
+                            expenseController: expenseController,
+                          )
                     : const Center(
                         child: Text('No Expenses to show insights'),
                       ),

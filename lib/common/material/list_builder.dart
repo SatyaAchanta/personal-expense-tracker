@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,23 +25,39 @@ class MyMaterialListBuilder extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(
-            expenses[index].title,
-            style: TextStyle(fontSize: screenSize.width * 0.05),
+        return Container(
+          margin: EdgeInsets.symmetric(
+            vertical: screenSize.height * 0.01,
+            horizontal: screenSize.width * 0.05,
           ),
-          subtitle: Text(format.format(expenses[index].date)),
-          onTap: () => {
-            Get.to(
-              ExpenseScreen(
-                expenseId: expenses[index].id,
-              ),
+          child: ListTile(
+            textColor: Theme.of(context).textTheme.titleMedium!.color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-          },
-          trailing: Text(
-            "\$${expenses[index].amount.toInt().toString()}",
-            style: TextStyle(
-              fontSize: screenSize.width * 0.06,
+            title: Text(
+              expenses[index].title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            subtitle: Text(
+              format.format(DateTime.fromMillisecondsSinceEpoch(
+                expenses[index].date,
+              )),
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            onTap: () => {
+              Get.to(
+                ExpenseScreen(
+                  expenseId: expenses[index].id,
+                ),
+              ),
+            },
+            trailing: Text(
+              "\$${expenses[index].amount.toStringAsFixed(2)}",
+              style: TextStyle(
+                fontSize: screenSize.width * 0.05,
+                color: Colors.blue,
+              ),
             ),
           ),
         );

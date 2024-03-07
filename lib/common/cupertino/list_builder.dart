@@ -32,7 +32,9 @@ class MyCupertinoListBuilder extends StatelessWidget {
               style: TextStyle(fontSize: screenSize.width * 0.05),
             ),
             subtitle: Text(
-              format.format(expenses[index].date),
+              format.format(
+                DateTime.fromMillisecondsSinceEpoch(expenses[index].date),
+              ),
             ),
             onTap: () => {
               Get.to(
