@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/expense_app_user.dart';
+import 'user_categories.dart';
 
 class MyMaterialUserProfile extends StatelessWidget {
   MyMaterialUserProfile({super.key});
 
   final TextEditingController budgetController = TextEditingController();
   final TextEditingController feedbackController = TextEditingController();
+  final ExpenseAppUserController userController =
+      Get.put(ExpenseAppUserController());
 
   @override
   Widget build(BuildContext context) {
-    budgetController.text = "1500";
+    budgetController.text = userController.getUser().budgetLimit.toString();
     Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -17,9 +23,9 @@ class MyMaterialUserProfile extends StatelessWidget {
             vertical: screenSize.height / 20,
           ),
           width: screenSize.width * 0.25,
-          height: screenSize.height * 0.1,
+          height: screenSize.height * 0.15,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(10),
             image: const DecorationImage(
               fit: BoxFit.fill,
               image: NetworkImage(
@@ -32,9 +38,17 @@ class MyMaterialUserProfile extends StatelessWidget {
           margin: EdgeInsets.symmetric(
             vertical: screenSize.height * 0.005,
           ),
-          child: Text(
-            "Satya Achanta",
-            style: Theme.of(context).textTheme.titleLarge,
+          child: Column(
+            children: [
+              Text(
+                userController.getUser().name,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                userController.getUser().email,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ],
           ),
         ),
         SizedBox(
@@ -51,7 +65,7 @@ class MyMaterialUserProfile extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               subtitle: Text(
-                '1500',
+                userController.getUser().budgetLimit.toString(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               trailing: IconButton(
@@ -69,7 +83,7 @@ class MyMaterialUserProfile extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       content: TextField(
-                        controller: feedbackController,
+                        controller: budgetController,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textInputAction: TextInputAction.done,
                         keyboardType: const TextInputType.numberWithOptions(
@@ -86,7 +100,9 @@ class MyMaterialUserProfile extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () => {
-                            print(feedbackController.text),
+                            userController.updateBudgetLimit(
+                              double.parse(budgetController.text),
+                            ),
                             Navigator.pop(context, 'OK'),
                           },
                           child: Text('OK',
@@ -109,7 +125,7 @@ class MyMaterialUserProfile extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             subtitle: Text(
-              '6',
+              userController.getUser().categories.length.toString(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: IconButton(
@@ -119,33 +135,9 @@ class MyMaterialUserProfile extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                budgetController.text = budgetController.text;
-              },
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(
-            vertical: screenSize.height * 0.01,
-            horizontal: screenSize.width * 0.01,
-          ),
-          child: ListTile(
-            title: Text(
-              'Currency',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            subtitle: Text(
-              'USD',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            trailing: IconButton(
-              icon: Icon(
-                Icons.arrow_right,
-                size: screenSize.width * 0.05,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              onPressed: () {
-                budgetController.text = budgetController.text;
+                Get.to(
+                  MyMaterialUserCategories(),
+                );
               },
             ),
           ),
@@ -184,7 +176,28 @@ class MyMaterialUserProfile extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: screenSize.width * 0.01,
+          ),
+          child: ListTile(
+            subtitle: Text(
+              'Logout',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            trailing: IconButton(
+              icon: Icon(
+                Icons.logout,
+                size: screenSize.width * 0.05,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () {
+                print("user loggedout");
+              },
+            ),
+          ),
+        ),
       ],
     );
   }

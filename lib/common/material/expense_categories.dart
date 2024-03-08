@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
-import 'package:personal_expense_tracker/controllers/expense.dart';
-import 'package:personal_expense_tracker/utils/screen.dart';
+
+import '../../controllers/expense.dart';
+import '../../utils/screen.dart';
 
 class MyMaterialCategoriesList extends StatelessWidget {
-  MyMaterialCategoriesList(
-      {super.key, required this.expenseController, required this.totalSpent});
+  MyMaterialCategoriesList({super.key, required this.expenseController});
 
   final ExpenseController expenseController;
   final logger = Logger('MyMaterialCategoriesList');
-  final double totalSpent;
 
   @override
   Widget build(BuildContext context) {
     List<MapEntry<String, double>> groupedExpenses =
         expenseController.groupExpensesByCategory();
+    double totalSpent = expenseController.getTotalExpenses();
     Size screenSize = getScreenSize(context);
     return Column(children: [
       Container(

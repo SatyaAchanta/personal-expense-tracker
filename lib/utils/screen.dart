@@ -147,8 +147,7 @@ ThemeData getDarkThemeData(BuildContext context) {
       bodySmall: TextStyle(color: Colors.white, fontSize: 12),
       titleLarge: TextStyle(color: Colors.white, fontSize: 24),
       titleMedium: TextStyle(color: Colors.white, fontSize: 18),
-      titleSmall: TextStyle(
-          color: Colors.white, fontSize: 12, fontStyle: FontStyle.italic),
+      titleSmall: TextStyle(color: Colors.white, fontSize: 12),
     ),
     dividerTheme: const DividerThemeData(
       color: Colors.white,

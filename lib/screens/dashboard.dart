@@ -2,21 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:personal_expense_tracker/common/cupertino/categories_list.dart';
-import 'package:personal_expense_tracker/common/material/categories_list.dart';
-import 'package:personal_expense_tracker/controllers/expense.dart';
-import 'package:personal_expense_tracker/utils/screen.dart';
+
+import '../common/cupertino/expense_categories.dart';
+import '../common/material/expense_categories.dart';
+import '../controllers/expense.dart';
+import '../controllers/expense_app_user.dart';
+import '../utils/screen.dart';
 
 class Dashboard extends StatelessWidget {
   Dashboard({super.key});
 
   final ExpenseController expenseController = Get.put(ExpenseController());
+  final ExpenseAppUserController userController =
+      Get.put(ExpenseAppUserController());
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = getScreenSize(context);
     double totalSpent = expenseController.getTotalExpenses();
     bool isIos = Theme.of(context).platform == TargetPlatform.iOS;
+    double totalBudget = userController.getUser().budgetLimit;
     Widget bodyContent = SingleChildScrollView(
       child: Center(
         child: Column(
@@ -51,7 +56,7 @@ class Dashboard extends StatelessWidget {
                 footer: Container(
                   margin: EdgeInsets.only(top: screenSize.height * 0.025),
                   child: Text(
-                    '${((totalSpent / 1500) * 100).ceil()}% of \$1500 Budget Used',
+                    '${((totalSpent / totalBudget) * 100).ceil()}% of \$$totalBudget Budget Used',
                     style: TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.bold,
@@ -75,7 +80,6 @@ class Dashboard extends StatelessWidget {
                             expenseController: expenseController)
                         : MyMaterialCategoriesList(
                             expenseController: expenseController,
-                            totalSpent: totalSpent,
                           )
                     : const Center(
                         child: Text('No Expenses to show insights'),

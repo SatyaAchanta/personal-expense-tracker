@@ -37,6 +37,7 @@ class ExpenseDetailMaterial extends StatelessWidget {
       expense.date,
     ));
     descriptionController.text = expense.description;
+    categoryController.text = expense.category;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -116,6 +117,18 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     onChanged: (value) => descriptionController.text = value,
                   ),
                 ),
+                ListTile(
+                  title: Text(
+                    'Category',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  subtitle: TextField(
+                    controller: categoryController,
+                    decoration: null,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    onChanged: (value) => categoryController.text = value,
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.05),
                   child: ElevatedButton(
@@ -129,6 +142,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                               .parse(dateController.text)
                               .millisecondsSinceEpoch,
                           place: placeController.text,
+                          description: descriptionController.text,
+                          category: categoryController.text,
                         ),
                       );
                       Get.back();

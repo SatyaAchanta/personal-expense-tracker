@@ -1,15 +1,19 @@
-class User {
+class ExpenseAppUser {
   String name;
   String email;
-  int id;
-  int budgetLimit = 0;
-  List<String> categories = [];
+  String id;
+  double budgetLimit;
+  List<String> categories;
+  String currency;
+  List<String> feedbackMessages;
 
-  User({
+  ExpenseAppUser({
     required this.name,
     required this.email,
     required this.id,
-    this.budgetLimit = 0,
+    this.budgetLimit = 1500,
     this.categories = const [],
+    this.currency = 'USD',
+    this.feedbackMessages = const [],
   });
 }

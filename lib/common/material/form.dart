@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
-import 'package:personal_expense_tracker/common/material/text_field.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../controllers/expense.dart';
+import '../../controllers/expense_app_user.dart';
+import 'text_field.dart';
 
 class MyMaterialForm extends StatelessWidget {
   MyMaterialForm({super.key});
@@ -20,21 +21,17 @@ class MyMaterialForm extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
 
   final ExpenseController expenseController = Get.put(ExpenseController());
+  final ExpenseAppUserController userController =
+      Get.put(ExpenseAppUserController());
   final logger = Logger('MyMaterialForm');
   final DateFormat format = DateFormat("MM/dd/yyyy");
-  final List<String> categories = [
-    'food',
-    'clothing',
-    'electronics',
-    'home',
-    'travel',
-    'entertainment',
-  ];
 
   String getRandomCategory() {
     Random random = Random();
-    int index = random.nextInt(categories.length);
-    return categories[index].toLowerCase();
+    int index = random.nextInt(userController.categories.length);
+    print("---- category index: $index");
+    print("----> category: ${userController.categories[index]}");
+    return userController.categories[index].toLowerCase();
   }
 
   @override
