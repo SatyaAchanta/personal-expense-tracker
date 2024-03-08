@@ -13,7 +13,6 @@ class ExpenseScreen extends StatelessWidget {
   final String expenseId;
 
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  static final myFocusNode = FocusNode();
 
   final logger = Logger('ExpenseScreen');
   final ExpenseController expenseController = Get.put(ExpenseController());

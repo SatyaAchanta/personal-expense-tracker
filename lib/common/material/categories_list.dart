@@ -5,10 +5,12 @@ import 'package:personal_expense_tracker/controllers/expense.dart';
 import 'package:personal_expense_tracker/utils/screen.dart';
 
 class MyMaterialCategoriesList extends StatelessWidget {
-  MyMaterialCategoriesList({super.key, required this.expenseController});
+  MyMaterialCategoriesList(
+      {super.key, required this.expenseController, required this.totalSpent});
 
   final ExpenseController expenseController;
   final logger = Logger('MyMaterialCategoriesList');
+  final double totalSpent;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,7 @@ class MyMaterialCategoriesList extends StatelessWidget {
       ...groupedExpenses.map((entry) {
         return Container(
           margin: EdgeInsets.symmetric(
-            vertical: screenSize.height * 0.01,
-            horizontal: screenSize.width * 0.05,
+            horizontal: screenSize.width * 0.01,
           ),
           child: ListTile(
             title: Text(
@@ -38,7 +39,7 @@ class MyMaterialCategoriesList extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             trailing: Text(
-              '\$${entry.value.toStringAsFixed(2)}',
+              '${(entry.value / totalSpent * 100).round()}%',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             onTap: () => {

@@ -15,16 +15,20 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = getScreenSize(context);
+    double totalSpent = expenseController.getTotalExpenses();
     bool isIos = Theme.of(context).platform == TargetPlatform.iOS;
     Widget bodyContent = SingleChildScrollView(
       child: Center(
         child: Column(
           children: <Widget>[
-            const Text(
-              'Welcome Satya',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+            Container(
+              margin: EdgeInsets.only(top: screenSize.height * 0.05),
+              child: const Text(
+                'Welcome Satya',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             Container(
@@ -36,7 +40,7 @@ class Dashboard extends StatelessWidget {
                 circularStrokeCap: CircularStrokeCap.butt,
                 percent: 0.7,
                 center: Text(
-                  '\$1000.00',
+                  totalSpent.toStringAsFixed(2),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -47,7 +51,7 @@ class Dashboard extends StatelessWidget {
                 footer: Container(
                   margin: EdgeInsets.only(top: screenSize.height * 0.025),
                   child: Text(
-                    '70% of \$1500 Budget Used',
+                    '${((totalSpent / 1500) * 100).ceil()}% of \$1500 Budget Used',
                     style: TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.bold,
@@ -71,6 +75,7 @@ class Dashboard extends StatelessWidget {
                             expenseController: expenseController)
                         : MyMaterialCategoriesList(
                             expenseController: expenseController,
+                            totalSpent: totalSpent,
                           )
                     : const Center(
                         child: Text('No Expenses to show insights'),

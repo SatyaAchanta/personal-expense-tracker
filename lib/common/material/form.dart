@@ -12,7 +12,7 @@ import '../../controllers/expense.dart';
 class MyMaterialForm extends StatelessWidget {
   MyMaterialForm({super.key});
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController placeController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -109,7 +109,10 @@ class MyMaterialForm extends StatelessWidget {
                 });
                 logger.info("Added Expense");
               },
-              child: const Text('Add'),
+              child: Text(
+                'Save',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expense_tracker/utils/screen.dart';
+
+import '../../utils/screen.dart';
 
 class MyMaterialTextField extends StatelessWidget {
   const MyMaterialTextField({
@@ -31,20 +32,14 @@ class MyMaterialTextField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: placeholder,
-          hintStyle: const TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
+          hintStyle: Theme.of(context).textTheme.bodyMedium,
           contentPadding: EdgeInsets.symmetric(
             vertical: screenSize.height * 0.02,
             horizontal: screenSize.width * 0.05,
           ),
           border: InputBorder.none,
         ),
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium,
         validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
       ),
     );

@@ -27,7 +27,8 @@ class MyMaterialScaffold extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: NavigationBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              backgroundColor:
+                  Theme.of(context).navigationBarTheme.backgroundColor,
               selectedIndex: controller.currentIndex,
               onDestinationSelected: controller.changeIndex,
               elevation: 1.5,
