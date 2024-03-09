@@ -10,6 +10,7 @@ class ExpenseAppUserController extends GetxController {
     budgetLimit: 1500,
     email: '',
     categories: [],
+    feedbackMessage: '',
   ).obs;
 
   final List<String> categories = [
@@ -20,18 +21,6 @@ class ExpenseAppUserController extends GetxController {
     'travel',
     'entertainment',
   ];
-
-  @override
-  void onInit() {
-    super.onInit();
-    user.value = ExpenseAppUser(
-      id: const Uuid().v4().toString(),
-      name: 'Satya Achanta',
-      budgetLimit: 1500,
-      email: 'satya-flutter@gmail.com',
-      categories: categories,
-    );
-  }
 
   void addCategory(String category) {
     user.update((val) {
@@ -53,5 +42,12 @@ class ExpenseAppUserController extends GetxController {
 
   ExpenseAppUser getUser() {
     return user.value;
+  }
+
+  void addFeedback(String feedback) {
+    print('in addFeedback $feedback');
+    user.update((val) {
+      val!.feedbackMessage = feedback;
+    });
   }
 }

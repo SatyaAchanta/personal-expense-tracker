@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/common/material/feedback.dart';
 
 import '../../controllers/expense_app_user.dart';
 import 'user_categories.dart';
@@ -148,32 +149,20 @@ class MyMaterialUserProfile extends StatelessWidget {
             horizontal: screenSize.width * 0.01,
           ),
           child: ListTile(
-            title: Text(
+            titleAlignment: ListTileTitleAlignment.center,
+            subtitle: Text(
               'Feedback for Developer',
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-            subtitle: Container(
-              margin: EdgeInsets.symmetric(
-                vertical: screenSize.height * 0.01,
+            trailing: IconButton(
+              icon: Icon(
+                Icons.arrow_right,
+                size: screenSize.width * 0.05,
+                color: Theme.of(context).iconTheme.color,
               ),
-              child: TextField(
-                style: Theme.of(context).textTheme.bodyMedium,
-                textInputAction: TextInputAction.send,
-                decoration: InputDecoration(
-                  hintText: "Enter your feedback here",
-                  hintStyle: Theme.of(context).textTheme.bodySmall,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  filled: true,
-                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
-                ),
-                maxLines: 4,
-                onSubmitted: (val) => {
-                  print("feedback is----"),
-                  print(val),
-                },
-              ),
+              onPressed: () {
+                Get.to(UserFeedbackMaterial());
+              },
             ),
           ),
         ),

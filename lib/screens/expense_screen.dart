@@ -31,7 +31,6 @@ class ExpenseScreen extends StatelessWidget {
           )
         : ExpenseDetailMaterial(
             expenseId: expenseId,
-            formKey: _formKey,
             format: format,
             expenseController: expenseController,
           );

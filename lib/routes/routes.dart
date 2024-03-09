@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:personal_expense_tracker/common/material/user_categories.dart';
 
+import '../common/material/feedback.dart';
+import '../common/material/user_categories.dart';
 import '../screens/dashboard.dart';
 import '../screens/expense_screen.dart';
 import '../screens/expense_form.dart';
@@ -17,6 +18,7 @@ class Routes {
   static const String profile = '/profile';
   static const String categoryExpenses = '/category-expenses';
   static const String userCategories = '/user-expenses';
+  static const String userFeedback = '/user-feedback';
 
   static String getHomeRoute() => home;
   static String getExpenses() => expenses;
@@ -25,6 +27,7 @@ class Routes {
   static String getProfile() => profile;
   static String getCategoryExpenses() => categoryExpenses;
   static String getUserExpenses() => userCategories;
+  static String getUserFeedback() => userFeedback;
 
   static List<GetPage> routes = [
     GetPage(
@@ -51,7 +54,7 @@ class Routes {
     ),
     GetPage(
       name: profile,
-      page: () => Profile(),
+      page: () => const Profile(),
     ),
     GetPage(
       name: categoryExpenses,
@@ -60,6 +63,10 @@ class Routes {
     GetPage(
       name: userCategories,
       page: () => MyMaterialUserCategories(),
+    ),
+    GetPage(
+      name: userFeedback,
+      page: () => UserFeedbackMaterial(),
     ),
   ];
 }

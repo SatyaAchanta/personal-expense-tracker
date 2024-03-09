@@ -5,7 +5,7 @@ class ExpenseAppUser {
   double budgetLimit;
   List<String> categories;
   String currency;
-  List<String> feedbackMessages;
+  String feedbackMessage;
 
   ExpenseAppUser({
     required this.name,
@@ -14,6 +14,6 @@ class ExpenseAppUser {
     this.budgetLimit = 1500,
     this.categories = const [],
     this.currency = 'USD',
-    this.feedbackMessages = const [],
+    this.feedbackMessage = "",
   });
 }

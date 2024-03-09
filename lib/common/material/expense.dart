@@ -10,13 +10,12 @@ class ExpenseDetailMaterial extends StatelessWidget {
   ExpenseDetailMaterial({
     super.key,
     required this.expenseId,
-    required this.formKey,
     required this.format,
     required this.expenseController,
   });
 
   final String expenseId;
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final DateFormat format;
   final ExpenseController expenseController;
   final TextEditingController titleController = TextEditingController();
