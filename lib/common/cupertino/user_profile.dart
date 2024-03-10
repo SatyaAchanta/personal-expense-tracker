@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:personal_expense_tracker/utils/text.dart';
 
 class MyCupertinoUserProfile extends StatelessWidget {
-  MyCupertinoUserProfile({super.key});
-
-  static final myFocusNode = FocusNode();
-
-  final TextEditingController _budgetController =
-      TextEditingController(text: "1500");
+  const MyCupertinoUserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,86 +26,47 @@ class MyCupertinoUserProfile extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(
-            vertical: screenSize.height / 50,
-          ),
-          decoration: BoxDecoration(
-            color: CupertinoColors.systemBackground.resolveFrom(context),
-            borderRadius: BorderRadius.circular(10),
-            border: null,
-          ),
-          child: const Text(
-            "Satya Achanta",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            margin: EdgeInsets.symmetric(
+              vertical: screenSize.height / 50,
             ),
-          ),
-        ),
+            decoration: BoxDecoration(
+              color: CupertinoColors.systemBackground.resolveFrom(context),
+              borderRadius: BorderRadius.circular(10),
+              border: null,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "Satya Achanta",
+                  style: MyTextStyles.labelMediumBold,
+                ),
+                Text(
+                  "satya-flutter@flutter.com",
+                  style: MyTextStyles.labelSmall,
+                ),
+              ],
+            )),
         Container(
           margin: EdgeInsets.symmetric(
             vertical: screenSize.height * 0.01,
           ),
           width: screenSize.width,
           child: CupertinoListSection.insetGrouped(
-            backgroundColor: CupertinoColors.systemBackground,
+            backgroundColor:
+                CupertinoColors.systemBackground.resolveFrom(context),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: null,
             ),
-            header: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Center(
-                child: Text("Budget Settings"),
-              ),
-            ),
-            children: <Widget>[
+            children: const <Widget>[
               CupertinoListTile(
-                title: const Text("Budget"),
-                trailing: SizedBox(
-                  width: screenSize.width / 5,
-                  child: CupertinoTextField(
-                    decoration: BoxDecoration(
-                      color:
-                          CupertinoColors.systemBackground.resolveFrom(context),
-                    ),
-                    controller: _budgetController,
-                    keyboardType: TextInputType.number,
-                    placeholder: "Enter Budget",
-                    focusNode: myFocusNode,
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-              ),
-              const CupertinoListTile(
-                title: Text("Currency"),
+                title: Text("Budget"),
                 trailing: CupertinoListTileChevron(),
               ),
-              const CupertinoListTile(
+              CupertinoListTile(
                 title: Text("Categories"),
                 trailing: CupertinoListTileChevron(),
               ),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(
-            vertical: screenSize.height * 0.01,
-          ),
-          width: screenSize.width,
-          child: CupertinoListSection.insetGrouped(
-            backgroundColor: CupertinoColors.systemBackground,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: null,
-            ),
-            header: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Center(
-                child: Text("About us"),
-              ),
-            ),
-            children: const <Widget>[
               CupertinoListTile(
                 title: Text("Developer"),
                 trailing: CupertinoListTileChevron(),
@@ -119,10 +76,26 @@ class MyCupertinoUserProfile extends StatelessWidget {
                 trailing: CupertinoListTileChevron(),
               ),
               CupertinoListTile(
-                title: Text("App Versions"),
+                title: Text("App Version"),
                 trailing: Text("1.0.0"),
               ),
             ],
+          ),
+        ),
+        Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: screenSize.height * 0.01,
+            ),
+            width: screenSize.width * 0.8,
+            child: CupertinoButton(
+              color: CupertinoColors.systemRed,
+              child: Text(
+                "Logout",
+                style: MyTextStyles.labelLargeBold,
+              ),
+              onPressed: () {},
+            ),
           ),
         ),
       ],

@@ -7,12 +7,15 @@ import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../controllers/expense.dart';
+import '../../controllers/expense_app_user.dart';
 
 class MyCupertinoForm extends StatelessWidget {
   MyCupertinoForm({super.key});
 
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final myFocusNode = FocusNode();
+  final ExpenseAppUserController userController =
+      Get.put(ExpenseAppUserController());
   final List<String> categories = [
     'food',
     'clothing',
@@ -24,7 +27,7 @@ class MyCupertinoForm extends StatelessWidget {
 
   String getRandomCategory() {
     Random random = Random();
-    int index = random.nextInt(categories.length);
+    int index = random.nextInt(userController.categories.length);
     return categories[index].toLowerCase();
   }
 
@@ -160,10 +163,11 @@ class MyCupertinoForm extends StatelessWidget {
                   'title': 'Satya Testing',
                   'place': 'Home',
                   'amount': double.parse('12.45'),
-                  'date': format.parse('02/24/2024'),
+                  'date': DateTime.now().millisecondsSinceEpoch,
                   'description': 'Sample Description for purchase',
-                  'isFlagged': false,
                   'category': getRandomCategory(),
+                  'isFlagged': false,
+                  'isFavorite': false,
                 });
               },
             ),

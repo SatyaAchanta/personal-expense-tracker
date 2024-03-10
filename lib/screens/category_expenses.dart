@@ -14,34 +14,32 @@ class CategoryExpenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    return SafeArea(
-      child: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(category),
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: const Icon(CupertinoIcons.back),
-          ),
-        ),
-        child: GetX<ExpenseController>(
-          builder: (controller) {
-            return controller.getExpensesAsModel().isEmpty
-                ? const Center(
-                    child: Text('No expenses yet!'),
-                  )
-                : isIOS
-                    ? MyCupertinoListBuilder(
-                        expenses: controller.getExpensesByCategory(category),
-                        removeExpense: controller.removeExpense,
-                      )
-                    : MyMaterialListBuilder(
-                        expenses: controller.getExpensesByCategory(category),
-                        removeExpense: controller.removeExpense,
-                      );
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(category),
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
           },
+          child: const Icon(CupertinoIcons.back),
         ),
+      ),
+      child: GetX<ExpenseController>(
+        builder: (controller) {
+          return controller.getExpensesAsModel().isEmpty
+              ? const Center(
+                  child: Text('No expenses yet!'),
+                )
+              : isIOS
+                  ? MyCupertinoListBuilder(
+                      expenses: controller.getExpensesByCategory(category),
+                      removeExpense: controller.removeExpense,
+                    )
+                  : MyMaterialListBuilder(
+                      expenses: controller.getExpensesByCategory(category),
+                      removeExpense: controller.removeExpense,
+                    );
+        },
       ),
     );
   }

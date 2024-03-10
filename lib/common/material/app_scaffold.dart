@@ -15,41 +15,43 @@ class MyMaterialScaffold extends StatelessWidget {
     return SafeArea(
       child: GetBuilder<DashboardController>(
         builder: (controller) {
-          return Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            body: IndexedStack(
-              index: controller.currentIndex,
-              children: [
-                Dashboard(),
-                const ExpenseList(),
-                ExpenseForm(),
-                Profile(),
-              ],
-            ),
-            bottomNavigationBar: NavigationBar(
-              backgroundColor:
-                  Theme.of(context).navigationBarTheme.backgroundColor,
-              selectedIndex: controller.currentIndex,
-              onDestinationSelected: controller.changeIndex,
-              elevation: 1.5,
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.list),
-                  label: 'Expenses',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.add),
-                  label: 'Add Expense',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.account_box),
-                  label: 'Profile',
-                ),
-              ],
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              body: IndexedStack(
+                index: controller.currentIndex,
+                children: [
+                  Dashboard(),
+                  const ExpenseList(),
+                  ExpenseForm(),
+                  const Profile(),
+                ],
+              ),
+              bottomNavigationBar: NavigationBar(
+                backgroundColor:
+                    Theme.of(context).navigationBarTheme.backgroundColor,
+                selectedIndex: controller.currentIndex,
+                onDestinationSelected: controller.changeIndex,
+                elevation: 1.5,
+                destinations: const [
+                  NavigationDestination(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.list),
+                    label: 'Expenses',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.add),
+                    label: 'Add Expense',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.account_box),
+                    label: 'Profile',
+                  ),
+                ],
+              ),
             ),
           );
         },

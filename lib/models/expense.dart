@@ -7,6 +7,7 @@ class Expense {
   final String place;
   final String category;
   final bool isFlagged;
+  final bool isFavorite;
 
   Expense({
     required this.id,
@@ -17,6 +18,7 @@ class Expense {
     this.description = '',
     this.category = 'Others',
     this.isFlagged = false,
+    this.isFavorite = false,
   });
 
   factory Expense.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Expense {
       description: json['description'],
       category: json['category'],
       isFlagged: json['isFlagged'],
+      isFavorite: json['isFavorite'],
     );
   }
 
@@ -42,6 +45,7 @@ class Expense {
       'description': description,
       'category': category,
       'isFlagged': isFlagged,
+      'isFavorite': isFavorite,
     };
   }
 }

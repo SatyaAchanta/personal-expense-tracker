@@ -1,18 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/utils/screen.dart';
 
 import '../../routes/routes.dart';
 
 class MyCupertinoApp extends StatelessWidget {
   const MyCupertinoApp({super.key});
 
+  getFontSize(BuildContext context) {
+    Size screenSize = getScreenSize(context);
+    double screenWidth = screenSize.width;
+    var fontSize = 0.0;
+    if (screenWidth < 600) {
+      fontSize = 18;
+    } else if (screenWidth < 1200) {
+      fontSize = 20;
+    } else {
+      fontSize = 24;
+    }
+
+    return fontSize;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size screenSize = getScreenSize(context);
     return GetCupertinoApp(
       title: 'Personal Expense Tracker - iOS',
-      theme: const CupertinoThemeData(
+      theme: CupertinoThemeData(
         primaryColor: CupertinoColors.activeBlue,
         barBackgroundColor: CupertinoColors.systemBackground,
+        textTheme: CupertinoTextThemeData(
+          primaryColor: CupertinoColors.label,
+          textStyle: TextStyle(
+            color: CupertinoColors.label.resolveFrom(context),
+            fontSize: getFontSize(context),
+          ),
+        ),
       ),
       initialRoute: Routes.getHomeRoute(),
       getPages: Routes.routes,

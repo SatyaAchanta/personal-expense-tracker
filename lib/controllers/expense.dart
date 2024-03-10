@@ -24,6 +24,7 @@ class ExpenseController extends GetxController {
   }
 
   List<Expense> getExpensesAsModel() {
+    print("getting expenses ad model");
     return expenses.map((e) => Expense.fromJson(e)).toList();
   }
 

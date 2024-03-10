@@ -19,18 +19,6 @@ class ExpenseForm extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: screenSize.height * 0.05),
-                child: const Text(
-                  'Add Expense',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
             Container(
               margin: EdgeInsets.only(top: screenSize.height * 0.01),
               child: isiOS ? MyCupertinoForm() : MyMaterialForm(),

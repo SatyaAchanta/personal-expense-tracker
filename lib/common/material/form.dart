@@ -37,11 +37,23 @@ class MyMaterialForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    Size deviceSize = mediaQuery.size;
+    Size screenSize = mediaQuery.size;
     return Form(
       key: _formKey,
       child: Column(
         children: [
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(top: screenSize.height * 0.05),
+              child: const Text(
+                'Add Expense',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
           MyMaterialTextField(
             controller: titleController,
             placeholder: 'Purchase Name',
@@ -64,9 +76,9 @@ class MyMaterialForm extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-              top: deviceSize.height * 0.01,
-              left: deviceSize.width * 0.01,
-              right: deviceSize.width * 0.01,
+              top: screenSize.height * 0.01,
+              left: screenSize.width * 0.01,
+              right: screenSize.width * 0.01,
             ),
             child: ElevatedButton(
               onPressed: () {
@@ -103,6 +115,7 @@ class MyMaterialForm extends StatelessWidget {
                   'description': 'Sample Description for purchase',
                   'isFlagged': false,
                   'category': getRandomCategory(),
+                  'isFavorite': false,
                 });
                 logger.info("Added Expense");
               },
