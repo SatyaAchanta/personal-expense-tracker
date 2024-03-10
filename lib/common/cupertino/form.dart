@@ -16,19 +16,10 @@ class MyCupertinoForm extends StatelessWidget {
   static final myFocusNode = FocusNode();
   final ExpenseAppUserController userController =
       Get.put(ExpenseAppUserController());
-  final List<String> categories = [
-    'food',
-    'clothing',
-    'electronics',
-    'home',
-    'travel',
-    'entertainment',
-  ];
-
   String getRandomCategory() {
     Random random = Random();
     int index = random.nextInt(userController.categories.length);
-    return categories[index].toLowerCase();
+    return userController.categories[index].toLowerCase();
   }
 
   final logger = Logger('MyCupertinoForm');

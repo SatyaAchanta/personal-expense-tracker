@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/expense.dart';
 import '../models/user.dart';
 
 class ExpenseAppUserController extends GetxController {
   final user = ExpenseAppUser(
     id: const Uuid().v4().toString(),
     name: '',
-    budgetLimit: 1500,
+    budgetLimit: 0.0,
     email: '',
     categories: [],
     feedbackMessage: '',
@@ -21,6 +22,20 @@ class ExpenseAppUserController extends GetxController {
     'travel',
     'entertainment',
   ];
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    user.value = ExpenseAppUser(
+      id: const Uuid().v4().toString(),
+      name: 'Expense App User',
+      budgetLimit: 2000.0,
+      email: 'expense-app@flutter.com',
+      categories: categories,
+      feedbackMessage: '',
+    );
+  }
 
   void addCategory(String category) {
     user.update((val) {

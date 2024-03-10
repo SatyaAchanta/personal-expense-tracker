@@ -16,9 +16,7 @@ class Profile extends StatelessWidget {
       child: SafeArea(
         child: SingleChildScrollView(
           child: Center(
-            child: isIos
-                ? const MyCupertinoUserProfile()
-                : MyMaterialUserProfile(),
+            child: isIos ? MyCupertinoUserProfile() : MyMaterialUserProfile(),
           ),
         ),
       ),

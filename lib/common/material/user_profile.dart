@@ -10,8 +10,7 @@ class MyMaterialUserProfile extends StatelessWidget {
 
   final TextEditingController budgetController = TextEditingController();
   final TextEditingController feedbackController = TextEditingController();
-  final ExpenseAppUserController userController =
-      Get.put(ExpenseAppUserController());
+  final ExpenseAppUserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {

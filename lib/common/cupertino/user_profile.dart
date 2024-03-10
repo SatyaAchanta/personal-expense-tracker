@@ -1,13 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import 'package:personal_expense_tracker/utils/text.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/expense_app_user.dart';
+import '../../screens/categories.dart';
+import '../../utils/text.dart';
+import 'budget.dart';
 
 class MyCupertinoUserProfile extends StatelessWidget {
-  const MyCupertinoUserProfile({super.key});
+  MyCupertinoUserProfile({super.key});
+
+  final ExpenseAppUserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
           width: screenSize.width / 5,
@@ -37,11 +45,11 @@ class MyCupertinoUserProfile extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "Satya Achanta",
+                  userController.getUser().name,
                   style: MyTextStyles.labelMediumBold,
                 ),
                 Text(
-                  "satya-flutter@flutter.com",
+                  userController.getUser().email,
                   style: MyTextStyles.labelSmall,
                 ),
               ],
@@ -58,26 +66,45 @@ class MyCupertinoUserProfile extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               border: null,
             ),
-            children: const <Widget>[
+            children: <Widget>[
               CupertinoListTile(
-                title: Text("Budget"),
-                trailing: CupertinoListTileChevron(),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.01,
+                ),
+                title: const Text("Budget"),
+                trailing: const CupertinoListTileChevron(),
+                onTap: () {
+                  Get.to(MyCupertinoUserBudget());
+                },
               ),
               CupertinoListTile(
-                title: Text("Categories"),
-                trailing: CupertinoListTileChevron(),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.01,
+                ),
+                title: const Text("Categories"),
+                trailing: const CupertinoListTileChevron(),
+                onTap: () => Get.to(UserCategories()),
               ),
               CupertinoListTile(
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.01,
+                ),
                 title: Text("Developer"),
                 trailing: CupertinoListTileChevron(),
               ),
               CupertinoListTile(
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.01,
+                ),
                 title: Text("Feedback"),
                 trailing: CupertinoListTileChevron(),
               ),
               CupertinoListTile(
-                title: Text("App Version"),
-                trailing: Text("1.0.0"),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenSize.height * 0.01,
+                ),
+                title: const Text("App Version"),
+                trailing: const Text("1.0.0"),
               ),
             ],
           ),

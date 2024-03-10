@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/screens/categories.dart';
 
-import '../common/material/feedback.dart';
-import '../common/material/user_categories.dart';
+import '../common/cupertino/budget.dart';
 import '../screens/dashboard.dart';
 import '../screens/expense_screen.dart';
 import '../screens/expense_form.dart';
@@ -17,8 +17,9 @@ class Routes {
   static const String expense = '/expense';
   static const String profile = '/profile';
   static const String categoryExpenses = '/category-expenses';
-  static const String userCategories = '/user-expenses';
+  static const String userCategories = '/user-categories';
   static const String userFeedback = '/user-feedback';
+  static const String userBudget = '/user-budget';
 
   static String getHomeRoute() => home;
   static String getExpenses() => expenses;
@@ -28,6 +29,7 @@ class Routes {
   static String getCategoryExpenses() => categoryExpenses;
   static String getUserExpenses() => userCategories;
   static String getUserFeedback() => userFeedback;
+  static String getUserBudget() => userBudget;
 
   static List<GetPage> routes = [
     GetPage(
@@ -62,11 +64,11 @@ class Routes {
     ),
     GetPage(
       name: userCategories,
-      page: () => MyMaterialUserCategories(),
+      page: () => UserCategories(),
     ),
     GetPage(
       name: userFeedback,
-      page: () => UserFeedbackMaterial(),
+      page: () => MyCupertinoUserBudget(),
     ),
   ];
 }
