@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:personal_expense_tracker/common/material/date_picker.dart';
+import 'package:personal_expense_tracker/common/material/text_field.dart';
 import 'package:personal_expense_tracker/utils/screen.dart';
 
 import '../../controllers/expense.dart';
@@ -24,6 +26,10 @@ class ExpenseDetailMaterial extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
+
+  void onDateSelected(DateTime pickedDate) {
+    dateController.text = format.format(pickedDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +67,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     'Title',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  subtitle: TextField(
-                    controller: titleController,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    decoration: null,
-                    onChanged: (value) => titleController.text = value,
+                  subtitle: MyMaterialTextField(
+                    editingController: titleController,
                   ),
                 ),
                 ListTile(
@@ -73,11 +76,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     'Place',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  subtitle: TextField(
-                    controller: placeController,
-                    decoration: null,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    onChanged: (value) => placeController.text = value,
+                  subtitle: MyMaterialTextField(
+                    editingController: placeController,
                   ),
                 ),
                 ListTile(
@@ -85,23 +85,14 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     'Price',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  subtitle: TextField(
-                    controller: amountController,
-                    decoration: null,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    onChanged: (value) => amountController.text = value,
+                  subtitle: MyMaterialTextField(
+                    editingController: amountController,
                   ),
                 ),
                 ListTile(
-                  title: Text(
-                    'Date',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  subtitle: TextField(
-                    controller: dateController,
-                    decoration: null,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    onChanged: (value) => dateController.text = value,
+                  subtitle: MyMaterialDatePicker(
+                    dateController: dateController,
+                    onDateSelected: onDateSelected,
                   ),
                 ),
                 ListTile(
@@ -109,11 +100,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     'Description',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  subtitle: TextField(
-                    controller: descriptionController,
-                    decoration: null,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    onChanged: (value) => descriptionController.text = value,
+                  subtitle: MyMaterialTextField(
+                    editingController: descriptionController,
                   ),
                 ),
                 ListTile(
@@ -121,11 +109,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                     'Category',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  subtitle: TextField(
-                    controller: categoryController,
-                    decoration: null,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    onChanged: (value) => categoryController.text = value,
+                  subtitle: MyMaterialTextField(
+                    editingController: categoryController,
                   ),
                 ),
                 Container(

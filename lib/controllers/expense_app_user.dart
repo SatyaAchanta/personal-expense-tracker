@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/expense.dart';
 import '../models/user.dart';
 
 class ExpenseAppUserController extends GetxController {

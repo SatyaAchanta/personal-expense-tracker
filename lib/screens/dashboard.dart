@@ -27,7 +27,7 @@ class Dashboard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: screenSize.height * 0.01),
+                margin: EdgeInsets.only(top: screenSize.height * 0.05),
                 child: Text(
                   'Welcome ${userController.getUser().name}',
                   style: MyTextStyles.labelLargeBold,
@@ -55,7 +55,7 @@ class Dashboard extends StatelessWidget {
                     child: Text(
                       '${((expenseController.getTotalExpenses() / userController.getUser().budgetLimit) * 100).ceil()}% of \$${userController.getUser().budgetLimit} Budget Used',
                       style: const TextStyle(
-                        fontSize: 17.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.blueAccent,
                       ),

@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
+import 'package:personal_expense_tracker/utils/screen.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../controllers/expense.dart';
 import '../../controllers/expense_app_user.dart';
+import '../../utils/text.dart';
 
 class MyCupertinoForm extends StatelessWidget {
   MyCupertinoForm({super.key});
@@ -32,8 +34,36 @@ class MyCupertinoForm extends StatelessWidget {
   final TextEditingController categoryController = TextEditingController();
   final DateFormat format = DateFormat("MM/dd/yyyy");
 
+  void _showDialog(
+    BuildContext context,
+    Widget child,
+    Size screenSize,
+  ) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: screenSize.height * 0.3,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system
+        // navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size screenSize = getScreenSize(context);
+    DateTime date = DateTime.now();
     return Form(
       key: _formKey,
       child: CupertinoFormSection.insetGrouped(
@@ -99,13 +129,34 @@ class MyCupertinoForm extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
             child: CupertinoFormRow(
-              prefix: const Text('Date'),
-              child: CupertinoTextFormFieldRow(
-                validator: (value) =>
-                    value!.isEmpty ? 'Please enter a date' : null,
-                placeholder: 'MM/DD/YYYY',
-                keyboardType: TextInputType.text,
-                controller: dateController,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Date"),
+                  CupertinoButton(
+                    onPressed: () {
+                      _showDialog(
+                        context,
+                        CupertinoDatePicker(
+                          initialDateTime: date,
+                          mode: CupertinoDatePickerMode.date,
+                          use24hFormat: true,
+                          // This shows day of week alongside day of month
+                          showDayOfWeek: true,
+                          // This is called when the user changes the date.
+                          onDateTimeChanged: (DateTime newDate) {
+                            print(newDate.millisecondsSinceEpoch);
+                          },
+                        ),
+                        screenSize,
+                      );
+                    },
+                    child: Text(
+                      '${date.month}-${date.day}-${date.year}',
+                      style: MyTextStyles.labelMedium,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
-import 'package:uuid/uuid.dart';
+import 'package:personal_expense_tracker/common/material/date_picker.dart';
 
 import '../../controllers/expense.dart';
 import '../../controllers/expense_app_user.dart';
-import 'text_field.dart';
+import 'text_form_field.dart';
 
 class MyMaterialForm extends StatelessWidget {
   MyMaterialForm({super.key});
@@ -29,15 +29,19 @@ class MyMaterialForm extends StatelessWidget {
   String getRandomCategory() {
     Random random = Random();
     int index = random.nextInt(userController.categories.length);
-    print("---- category index: $index");
-    print("----> category: ${userController.categories[index]}");
     return userController.categories[index].toLowerCase();
+  }
+
+  void onDateSelected(DateTime pickedDate) {
+    dateController.text = format.format(pickedDate);
   }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     Size screenSize = mediaQuery.size;
+    dateController.value =
+        TextEditingValue(text: format.format(DateTime.now()));
     return Form(
       key: _formKey,
       child: Column(
@@ -54,23 +58,36 @@ class MyMaterialForm extends StatelessWidget {
               ),
             ),
           ),
-          MyMaterialTextField(
+          MyMaterialTextFormField(
             controller: titleController,
             placeholder: 'Purchase Name',
           ),
-          MyMaterialTextField(
+          MyMaterialTextFormField(
             controller: placeController,
             placeholder: 'Place of purchase',
           ),
-          MyMaterialTextField(
+          MyMaterialTextFormField(
             controller: priceController,
             placeholder: 'Amount',
           ),
-          MyMaterialTextField(
-            controller: dateController,
-            placeholder: 'Date of purchase',
+          Container(
+            margin: EdgeInsets.symmetric(
+              vertical: screenSize.height * 0.01,
+              horizontal: screenSize.width * 0.1,
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.02,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: MyMaterialDatePicker(
+              dateController: dateController,
+              onDateSelected: onDateSelected,
+            ),
           ),
-          MyMaterialTextField(
+          MyMaterialTextFormField(
             controller: descriptionController,
             placeholder: 'notes',
           ),
@@ -82,6 +99,7 @@ class MyMaterialForm extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: () {
+                logger.info('Save button pressed');
                 // if (_formKey.currentState!.validate()) {
                 //   print("form is valid");
                 //   // expenseController.addExpense({
@@ -105,19 +123,6 @@ class MyMaterialForm extends StatelessWidget {
                 //     'description': 'testing',
                 //   });
                 // }
-
-                expenseController.addExpense({
-                  'id': const Uuid().v4(),
-                  'title': 'Satya Testing',
-                  'place': 'Home',
-                  'amount': double.parse('12.45'),
-                  'date': DateTime.now().millisecondsSinceEpoch,
-                  'description': 'Sample Description for purchase',
-                  'isFlagged': false,
-                  'category': getRandomCategory(),
-                  'isFavorite': false,
-                });
-                logger.info("Added Expense");
               },
               child: Text(
                 'Save',

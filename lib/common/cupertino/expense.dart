@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../controllers/expense.dart';
 import '../../models/expense.dart';
+import '../../utils/text.dart';
 
 class ExpenseDetailCupertino extends StatelessWidget {
   const ExpenseDetailCupertino({
@@ -20,6 +21,32 @@ class ExpenseDetailCupertino extends StatelessWidget {
   final DateFormat format;
   final ExpenseController expenseController;
 
+  void _showDialog(
+    BuildContext context,
+    Widget child,
+    Size screenSize,
+  ) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: screenSize.height * 0.3,
+        padding: EdgeInsets.only(top: screenSize.height * 0.02),
+        // The Bottom margin is provided to align the popup above the system
+        // navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String? title;
@@ -29,6 +56,11 @@ class ExpenseDetailCupertino extends StatelessWidget {
     String? category;
     String? description;
     final currentExpense = expenseController.findExpense(expenseId);
+    int dateInSeconds = currentExpense.date;
+    DateTime expenseDate = DateTime.fromMillisecondsSinceEpoch(
+      dateInSeconds,
+    );
+    Size screenSize = MediaQuery.of(context).size;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         border: null,
@@ -116,18 +148,34 @@ class ExpenseDetailCupertino extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 4.0),
                     child: CupertinoFormRow(
-                      prefix: const Text('Date'),
-                      child: CupertinoTextFormFieldRow(
-                        validator: (value) =>
-                            value!.isEmpty ? 'Please enter a date' : null,
-                        placeholder: 'Date of purchase',
-                        keyboardType: TextInputType.datetime,
-                        initialValue: format.format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                            currentExpense.date,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Date"),
+                          CupertinoButton(
+                            onPressed: () {
+                              _showDialog(
+                                context,
+                                CupertinoDatePicker(
+                                  initialDateTime: expenseDate,
+                                  mode: CupertinoDatePickerMode.date,
+                                  use24hFormat: true,
+                                  // This shows day of week alongside day of month
+                                  showDayOfWeek: true,
+                                  // This is called when the user changes the date.
+                                  onDateTimeChanged: (DateTime newDate) {
+                                    print(newDate.millisecondsSinceEpoch);
+                                  },
+                                ),
+                                screenSize,
+                              );
+                            },
+                            child: Text(
+                              '${expenseDate.month}-${expenseDate.day}-${expenseDate.year}',
+                              style: MyTextStyles.labelMedium,
+                            ),
                           ),
-                        ),
-                        onSaved: (newValue) => date = newValue,
+                        ],
                       ),
                     ),
                   ),
