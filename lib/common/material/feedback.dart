@@ -31,12 +31,22 @@ class UserFeedbackMaterial extends StatelessWidget {
                 ),
                 child: TextField(
                   controller: TextEditingController(
-                      text: controller.getUser().feedbackMessage),
+                    text: controller.getUser().feedbackMessage,
+                  ),
                   style: Theme.of(context).textTheme.titleMedium,
                   textInputAction: TextInputAction.send,
                   onSubmitted: (value) => controller.addFeedback(value),
                   maxLines: 5,
                   key: const Key('feedbackTextField'),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  controller.addFeedback(controller.getUser().feedbackMessage);
+                },
+                child: Text(
+                  'Submit',
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
             ],

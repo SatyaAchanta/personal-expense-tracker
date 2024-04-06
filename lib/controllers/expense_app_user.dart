@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/services/auth.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/user.dart';
@@ -11,6 +13,7 @@ class ExpenseAppUserController extends GetxController {
     email: '',
     categories: [],
     feedbackMessage: '',
+    isAuth: false,
   ).obs;
 
   final List<String> categories = [
@@ -21,6 +24,8 @@ class ExpenseAppUserController extends GetxController {
     'travel',
     'entertainment',
   ];
+
+  final AuthService _authService = Get.put(AuthService());
 
   @override
   void onInit() {
@@ -33,6 +38,7 @@ class ExpenseAppUserController extends GetxController {
       email: 'expense-app@flutter.com',
       categories: categories,
       feedbackMessage: '',
+      isAuth: false,
     );
   }
 
@@ -63,5 +69,16 @@ class ExpenseAppUserController extends GetxController {
     user.update((val) {
       val!.feedbackMessage = feedback;
     });
+  }
+
+  Future<User?> signInUser(String email, String password) async {
+    User? user = await _authService.signInWithEmailAndPassword(email, password);
+    if (user != null) {
+      print(user);
+      this.user.update((val) {
+        val!.isAuth = true;
+      });
+    }
+    return user;
   }
 }

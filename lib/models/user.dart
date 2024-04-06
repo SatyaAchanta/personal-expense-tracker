@@ -6,6 +6,7 @@ class ExpenseAppUser {
   List<String> categories;
   String currency;
   String feedbackMessage;
+  bool isAuth;
 
   ExpenseAppUser({
     required this.name,
@@ -15,5 +16,6 @@ class ExpenseAppUser {
     this.categories = const [],
     this.currency = 'USD',
     this.feedbackMessage = "",
+    this.isAuth = false,
   });
 }

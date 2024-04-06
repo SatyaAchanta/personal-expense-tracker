@@ -48,13 +48,10 @@ class MyMaterialForm extends StatelessWidget {
         children: [
           Center(
             child: Container(
-              margin: EdgeInsets.only(top: screenSize.height * 0.05),
-              child: const Text(
+              margin: EdgeInsets.symmetric(vertical: screenSize.height * 0.05),
+              child: Text(
                 'Add Expense',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           ),
@@ -69,6 +66,7 @@ class MyMaterialForm extends StatelessWidget {
           MyMaterialTextFormField(
             controller: priceController,
             placeholder: 'Amount',
+            keyboardType: TextInputType.number,
           ),
           Container(
             margin: EdgeInsets.symmetric(

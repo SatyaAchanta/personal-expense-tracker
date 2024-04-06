@@ -60,13 +60,23 @@ class MyMaterialUserProfile extends StatelessWidget {
             horizontal: screenSize.width * 0.01,
           ),
           child: ListTile(
+              isThreeLine: true,
               title: Text(
                 'Budget',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              subtitle: Text(
-                userController.getUser().budgetLimit.toString(),
-                style: Theme.of(context).textTheme.bodyLarge,
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userController.getUser().budgetLimit.toString(),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Reset on 1st of every month',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
               ),
               trailing: IconButton(
                 icon: Icon(

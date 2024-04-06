@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:personal_expense_tracker/utils/screen.dart';
 
+import '../../controllers/expense_app_user.dart';
 import '../../routes/routes.dart';
 
 class MyCupertinoApp extends StatelessWidget {
-  const MyCupertinoApp({super.key});
+  MyCupertinoApp({super.key});
+  final ExpenseAppUserController userController =
+      Get.put(ExpenseAppUserController());
 
   getFontSize(BuildContext context) {
     Size screenSize = getScreenSize(context);
@@ -38,7 +41,9 @@ class MyCupertinoApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: Routes.getHomeRoute(),
+      initialRoute: userController.getUser().isAuth
+          ? Routes.getHomeRoute()
+          : Routes.getLoginRoute(),
       getPages: Routes.routes,
     );
   }

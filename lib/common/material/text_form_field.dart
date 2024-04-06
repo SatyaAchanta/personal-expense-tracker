@@ -7,10 +7,12 @@ class MyMaterialTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     this.placeholder,
+    this.keyboardType = TextInputType.text,
   });
 
   final TextEditingController controller;
   final String? placeholder;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +33,17 @@ class MyMaterialTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          hintText: placeholder,
-          hintStyle: Theme.of(context).textTheme.bodyMedium,
+          labelText: placeholder,
+          labelStyle: Theme.of(context).textTheme.bodySmall,
           contentPadding: EdgeInsets.symmetric(
             vertical: screenSize.height * 0.02,
             horizontal: screenSize.width * 0.05,
-          ),
-          border: InputBorder.none,
+          ), // use OutlineInputBorder to display the label as part of the border
         ),
         style: Theme.of(context).textTheme.bodyMedium,
         validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
+        textInputAction: TextInputAction.next,
+        keyboardType: keyboardType,
       ),
     );
   }
