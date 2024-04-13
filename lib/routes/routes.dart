@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:personal_expense_tracker/screens/register.dart';
 
 import '../common/cupertino/budget.dart';
 import '../screens/categories.dart';
@@ -22,6 +23,7 @@ class Routes {
   static const String userFeedback = '/user-feedback';
   static const String userBudget = '/user-budget';
   static const String login = '/login';
+  static const String register = '/register';
 
   static String getLoginRoute() => login;
   static String getHomeRoute() => home;
@@ -33,11 +35,16 @@ class Routes {
   static String getUserExpenses() => userCategories;
   static String getUserFeedback() => userFeedback;
   static String getUserBudget() => userBudget;
+  static String getRegister() => register;
 
   static List<GetPage> routes = [
     GetPage(
       name: home,
       page: () => Login(),
+    ),
+    GetPage(
+      name: register,
+      page: () => Register(),
     ),
     GetPage(
       name: home,

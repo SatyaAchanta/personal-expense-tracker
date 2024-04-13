@@ -81,4 +81,15 @@ class ExpenseAppUserController extends GetxController {
     }
     return user;
   }
+
+  Future<User?> signUpUser(String email, String password) async {
+    User? user = await _authService.signInWithEmailAndPassword(email, password);
+    if (user != null) {
+      print(user);
+      this.user.update((val) {
+        val!.isAuth = true;
+      });
+    }
+    return user;
+  }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:personal_expense_tracker/common/material/credentials.dart';
 import 'package:personal_expense_tracker/controllers/expense_app_user.dart';
+import 'package:personal_expense_tracker/screens/register.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -15,55 +18,10 @@ class Login extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(
-              vertical: screenSize.height * 0.05,
-              horizontal: screenSize.width * 0.1,
-            ),
-            child: Text(
-              'Login',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              vertical: screenSize.height * 0.01,
-              horizontal: screenSize.width * 0.1,
-            ),
-            child: TextField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              style: Theme.of(context).textTheme.bodyMedium,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                labelStyle: Theme.of(context).textTheme.bodySmall,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.01,
-                  horizontal: screenSize.width * 0.05,
-                ),
-                suffixIcon: const Icon(Icons.email),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              vertical: screenSize.height * 0.01,
-              horizontal: screenSize.width * 0.1,
-            ),
-            child: TextField(
-              obscureText: true,
-              style: Theme.of(context).textTheme.bodyMedium,
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle: Theme.of(context).textTheme.bodySmall,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: screenSize.height * 0.01,
-                  horizontal: screenSize.width * 0.05,
-                ),
-                suffixIcon: const Icon(Icons.lock),
-              ),
-            ),
+          MyMaterialCredentials(
+            pageTitle: 'Login',
+            emailController: _emailController,
+            passwordController: _passwordController,
           ),
           Container(
             width: screenSize.width,
@@ -110,6 +68,30 @@ class Login extends StatelessWidget {
                 'Sign in with Google',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+            ),
+          ),
+          SizedBox(
+            height: screenSize.height * 0.01,
+          ),
+          TextButton(
+              onPressed: () {
+                Get.to(Register());
+              },
+              child: Text(
+                'New User ? Register Here',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      decoration: TextDecoration.underline,
+                      decorationColor: Theme.of(context).primaryColor,
+                    ),
+              )),
+          TextButton(
+            onPressed: null,
+            child: Text(
+              'Forgot Password ?',
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    decoration: TextDecoration.underline,
+                    decorationColor: Theme.of(context).primaryColor,
+                  ),
             ),
           ),
         ],
