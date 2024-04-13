@@ -65,10 +65,10 @@ def add_expense_document(
     full_current_year = datetime.now().strftime("%Y")
     full_current_month = datetime.now().strftime("%B")
 
-    # Add the new document to another collection
-    new_doc_ref = firestore_client.collection("user-expenses").document(doc_id)
+    # Add the new document to user-expenses collection
+    user_expenses_ref = firestore_client.collection("user-expenses").document(doc_id)
 
-    sub_expense_collection_ref = new_doc_ref.collection(
+    sub_expense_collection_ref = user_expenses_ref.collection(
         f"{current_year}-{current_month}"
     )
 
@@ -78,4 +78,11 @@ def add_expense_document(
 
     sub_expense_collection_ref.document("info").set(new_document_data)
 
-    print(f"New document with ID {new_doc_ref.id} added to another collection.")
+    # Add new document to summaries collection
+    summaries_ref = firestore_client.collection("summaries").document(doc_id)
+
+    new_summary_data = {"weekly": 0, "monthly": 0, "yearly": 0}
+
+    summaries_ref.set(new_summary_data)
+
+    print(f"New document with ID {user_expenses_ref.id} added to another collection.")
