@@ -55,10 +55,7 @@ class Login extends StatelessWidget {
             ),
             child: OutlinedButton.icon(
               onPressed: () async {
-                await userController.signInUser(
-                  "sample-user@mailinator.com",
-                  "testing",
-                );
+                await userController.signInWithGoogle();
               },
               icon: Image.asset(
                 'assets/images/google_logo.jpeg',

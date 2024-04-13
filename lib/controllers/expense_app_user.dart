@@ -92,4 +92,13 @@ class ExpenseAppUserController extends GetxController {
     }
     return user;
   }
+
+  Future<User?> signInWithGoogle() async {
+    User? user = await _authService.signInWithGoogle();
+    print(user);
+    this.user.update((val) {
+      val!.isAuth = true;
+    });
+    return user;
+  }
 }
