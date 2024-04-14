@@ -7,6 +7,7 @@ class ExpenseAppUser {
   String currency;
   String feedbackMessage;
   bool isAuth;
+  bool isNewUser;
 
   ExpenseAppUser({
     required this.name,
@@ -17,5 +18,6 @@ class ExpenseAppUser {
     this.currency = 'USD',
     this.feedbackMessage = "",
     this.isAuth = false,
+    this.isNewUser = false,
   });
 }

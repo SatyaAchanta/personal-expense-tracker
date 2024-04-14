@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Size getScreenSize(BuildContext context) {
   MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -47,13 +48,13 @@ ThemeData getThemeData(BuildContext context) {
     iconTheme: const IconThemeData(color: Colors.black),
     primarySwatch: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.black, fontSize: 24),
-      bodyMedium: TextStyle(color: Colors.black, fontSize: 18),
-      bodySmall: TextStyle(color: Colors.black, fontSize: 12),
-      titleLarge: TextStyle(color: Colors.black, fontSize: 24),
-      titleMedium: TextStyle(color: Colors.black, fontSize: 18),
-      titleSmall: TextStyle(
+    textTheme: TextTheme(
+      bodyLarge: GoogleFonts.lato(color: Colors.black, fontSize: 24),
+      bodyMedium: GoogleFonts.lato(color: Colors.black, fontSize: 18),
+      bodySmall: GoogleFonts.lato(color: Colors.black, fontSize: 12),
+      titleLarge: GoogleFonts.lato(color: Colors.black, fontSize: 24),
+      titleMedium: GoogleFonts.lato(color: Colors.black, fontSize: 18),
+      titleSmall: GoogleFonts.lato(
         color: Colors.black,
         fontSize: 12,
       ),
@@ -141,13 +142,13 @@ ThemeData getDarkThemeData(BuildContext context) {
     iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(iconColor: MaterialStatePropertyAll(Colors.white)),
     ),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white, fontSize: 24),
-      bodyMedium: TextStyle(color: Colors.white, fontSize: 18),
-      bodySmall: TextStyle(color: Colors.white, fontSize: 12),
-      titleLarge: TextStyle(color: Colors.white, fontSize: 24),
-      titleMedium: TextStyle(color: Colors.white, fontSize: 18),
-      titleSmall: TextStyle(color: Colors.white, fontSize: 12),
+    textTheme: TextTheme(
+      bodyLarge: GoogleFonts.lato(color: Colors.white, fontSize: 24),
+      bodyMedium: GoogleFonts.lato(color: Colors.white, fontSize: 18),
+      bodySmall: GoogleFonts.lato(color: Colors.white, fontSize: 12),
+      titleLarge: GoogleFonts.lato(color: Colors.white, fontSize: 24),
+      titleMedium: GoogleFonts.lato(color: Colors.white, fontSize: 18),
+      titleSmall: GoogleFonts.lato(color: Colors.white, fontSize: 12),
     ),
     dividerTheme: const DividerThemeData(
       color: Colors.white,

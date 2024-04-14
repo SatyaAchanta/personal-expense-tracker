@@ -14,6 +14,7 @@ class ExpenseAppUserController extends GetxController {
     categories: [],
     feedbackMessage: '',
     isAuth: false,
+    isNewUser: false,
   ).obs;
 
   final List<String> categories = [
@@ -25,11 +26,20 @@ class ExpenseAppUserController extends GetxController {
     'entertainment',
   ];
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthService _authService = Get.put(AuthService());
 
   @override
   void onInit() {
     super.onInit();
+
+    _auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        Get.toNamed('/dashboard');
+      }
+    });
 
     user.value = ExpenseAppUser(
       id: const Uuid().v4().toString(),
@@ -39,6 +49,7 @@ class ExpenseAppUserController extends GetxController {
       categories: categories,
       feedbackMessage: '',
       isAuth: false,
+      isNewUser: false,
     );
   }
 
@@ -71,6 +82,12 @@ class ExpenseAppUserController extends GetxController {
     });
   }
 
+  void setIsNewUser(bool isNewUser) {
+    user.update((val) {
+      val!.isNewUser = isNewUser;
+    });
+  }
+
   Future<User?> signInUser(String email, String password) async {
     User? user = await _authService.signInWithEmailAndPassword(email, password);
     if (user != null) {
@@ -83,7 +100,7 @@ class ExpenseAppUserController extends GetxController {
   }
 
   Future<User?> signUpUser(String email, String password) async {
-    User? user = await _authService.signInWithEmailAndPassword(email, password);
+    User? user = await _authService.signUpWithEmailAndPassword(email, password);
     if (user != null) {
       print(user);
       this.user.update((val) {
