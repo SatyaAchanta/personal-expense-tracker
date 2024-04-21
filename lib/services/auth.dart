@@ -1,37 +1,43 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:personal_expense_tracker/models/user.dart';
+import 'package:logging/logging.dart';
+import 'package:personal_expense_tracker/models/auth.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<User?> signInWithEmailAndPassword(
-      String email, String password) async {
+  final logger = Logger('AuthService');
+
+  Future<Auth> signInWithEmailAndPassword(String email, String password) async {
     try {
-      print("---- before signInWithEmailAndPassword");
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return userCredential.user;
+      return Auth(user: userCredential.user, error: null);
+    } on FirebaseAuthException catch (e) {
+      logger.severe('FirebaseAuthException: ${e.code}');
+      return Auth(user: null, error: e.code);
     } catch (e) {
-      print(e.toString());
-      return null;
+      logger.severe('UserLoginException: ${e.toString()}');
+      return Auth(user: null, error: e.toString());
     }
   }
 
-  Future<User?> signUpWithEmailAndPassword(
-      String email, String password) async {
+  Future<Auth> signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return userCredential.user;
+      return Auth(user: userCredential.user, error: null);
+    } on FirebaseAuthException catch (e) {
+      logger.severe('FirebaseAuthException: ${e.code}');
+      return Auth(user: null, error: e.code);
     } catch (e) {
-      print(e.toString());
-      return null;
+      logger.severe('UserLoginException: ${e.toString()}');
+      return Auth(user: null, error: e.toString());
     }
   }
 
@@ -50,7 +56,10 @@ class AuthService {
     final UserCredential userCredential =
         await _auth.signInWithCredential(googleCredential);
 
-    print("Loggined in with google successfully");
     return userCredential.user!;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }
