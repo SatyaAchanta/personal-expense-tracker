@@ -191,7 +191,8 @@ class MyMaterialUserProfile extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                print("user loggedout");
+                userController.signOut();
+                Get.toNamed('/login');
               },
             ),
           ),

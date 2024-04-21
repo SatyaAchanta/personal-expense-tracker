@@ -6,32 +6,32 @@ class MyTextStyles {
   static double mediumFontsize = 18.0;
   static double largeFontsize = 20.0;
 
-  static final TextStyle labelSmall = GoogleFonts.lato(
+  static final TextStyle labelSmall = GoogleFonts.roboto(
     fontSize: smallFontsize,
     fontWeight: FontWeight.normal,
   );
 
-  static final TextStyle labelSmallBold = GoogleFonts.lato(
+  static final TextStyle labelSmallBold = GoogleFonts.roboto(
     fontSize: smallFontsize,
     fontWeight: FontWeight.bold,
   );
 
-  static final TextStyle labelMedium = GoogleFonts.lato(
+  static final TextStyle labelMedium = GoogleFonts.roboto(
     fontSize: mediumFontsize,
     fontWeight: FontWeight.normal,
   );
 
-  static final TextStyle labelMediumBold = GoogleFonts.lato(
+  static final TextStyle labelMediumBold = GoogleFonts.roboto(
     fontSize: mediumFontsize,
     fontWeight: FontWeight.bold,
   );
 
-  static final TextStyle labelLarge = GoogleFonts.lato(
+  static final TextStyle labelLarge = GoogleFonts.roboto(
     fontSize: largeFontsize,
     fontWeight: FontWeight.normal,
   );
 
-  static final TextStyle labelLargeBold = GoogleFonts.lato(
+  static final TextStyle labelLargeBold = GoogleFonts.roboto(
     fontSize: largeFontsize,
     fontWeight: FontWeight.bold,
   );

@@ -18,7 +18,8 @@ class MyMaterialApp extends StatelessWidget {
       title: 'Personal Expense Tracker - Android',
       theme: getThemeData(context),
       darkTheme: getDarkThemeData(context),
-      initialRoute: '/home',
+      initialRoute:
+          userController.getUser().isAuth ? Routes.dashboard : Routes.login,
       getPages: Routes.routes,
     );
   }
