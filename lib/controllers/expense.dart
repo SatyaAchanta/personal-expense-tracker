@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:faker/faker.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 import '../models/expense.dart';
@@ -21,22 +20,22 @@ class ExpenseController extends GetxController {
 
   @override
   void onInit() {
-    for (int i = 0; i < 20; i++) {
-      final expense = {
-        "id": faker.guid.guid(),
-        "title": faker.lorem.word(),
-        "amount": faker.randomGenerator.decimal(scale: 2),
-        "date": faker.date
-            .dateTime(minYear: 202, maxYear: 2025)
-            .millisecondsSinceEpoch,
-        "description": faker.lorem.sentence(),
-        "place": faker.address.city(),
-        "category": getRandomCategory(),
-        "isFlagged": faker.randomGenerator.boolean(),
-        "isFavorite": faker.randomGenerator.boolean(),
-      };
-      expenses.add(expense);
-    }
+    // for (int i = 0; i < 20; i++) {
+    //   final expense = {
+    //     "id": faker.guid.guid(),
+    //     "title": faker.lorem.word(),
+    //     "amount": faker.randomGenerator.decimal(scale: 2),
+    //     "date": faker.date
+    //         .dateTime(minYear: 202, maxYear: 2025)
+    //         .millisecondsSinceEpoch,
+    //     "description": faker.lorem.sentence(),
+    //     "place": faker.address.city(),
+    //     "category": getRandomCategory(),
+    //     "isFlagged": faker.randomGenerator.boolean(),
+    //     "isFavorite": faker.randomGenerator.boolean(),
+    //   };
+    //   expenses.add(expense);
+    // }
     super.onInit();
   }
 

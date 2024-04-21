@@ -121,7 +121,10 @@ class MyCupertinoUserProfile extends StatelessWidget {
                 "Logout",
                 style: MyTextStyles.labelLargeBold,
               ),
-              onPressed: () {},
+              onPressed: () {
+                userController.signOut();
+                Get.toNamed("/login");
+              },
             ),
           ),
         ),

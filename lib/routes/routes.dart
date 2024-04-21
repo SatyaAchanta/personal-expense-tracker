@@ -37,7 +37,7 @@ class Routes {
   static List<GetPage> routes = [
     GetPage(
       name: login,
-      page: () => Login(),
+      page: () => const Login(),
     ),
     GetPage(
       name: home,
@@ -71,7 +71,7 @@ class Routes {
     ),
     GetPage(
       name: userCategories,
-      page: () => UserCategories(),
+      page: () => const UserCategories(),
     ),
     GetPage(
       name: userFeedback,
