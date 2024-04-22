@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ class AuthHelper {
     ExpenseAppUserController userController,
     String email,
     String password,
+    bool isIos,
   ) async {
     bool authResult = await userController.signInUser(
       email,
@@ -19,15 +21,15 @@ class AuthHelper {
       Get.snackbar(
         "Failed Login",
         userController.getUser().authErrorMessage,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+        backgroundColor: isIos ? CupertinoColors.systemRed : Colors.red,
+        colorText: isIos ? CupertinoColors.systemGrey6 : Colors.white,
       );
     } else {
       Get.snackbar(
         "Login Successful",
         "Welcome ${userController.getUser().name}",
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
+        backgroundColor: isIos ? CupertinoColors.systemGreen : Colors.green,
+        colorText: isIos ? CupertinoColors.systemGrey6 : Colors.white,
       );
 
       Get.toNamed("/home");
@@ -39,6 +41,7 @@ class AuthHelper {
     UserService userService,
     String email,
     String password,
+    bool isIos,
   ) async {
     bool authRes = await userController.signUpUser(
       email,
@@ -59,8 +62,8 @@ class AuthHelper {
         Get.snackbar(
           "Registration Successful",
           "User created successfully",
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          backgroundColor: isIos ? CupertinoColors.systemGreen : Colors.green,
+          colorText: isIos ? CupertinoColors.systemGrey6 : Colors.white,
         );
 
         Get.toNamed("/home");
@@ -68,8 +71,8 @@ class AuthHelper {
         Get.snackbar(
           "Failed Registration",
           "Please try again after sometime.",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
+          backgroundColor: isIos ? CupertinoColors.systemRed : Colors.red,
+          colorText: isIos ? CupertinoColors.systemGrey6 : Colors.white,
         );
       }
     }

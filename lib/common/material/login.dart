@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/expense_app_user.dart';
 import '../../services/user.dart';
+import '../../utils/auth.dart';
 import '../../utils/logger.dart';
 
 class MyMaterialLogin extends StatelessWidget {
@@ -13,68 +14,8 @@ class MyMaterialLogin extends StatelessWidget {
   final ExpenseAppUserController userController =
       Get.put(ExpenseAppUserController());
   final UserService _userService = Get.put(UserService());
+  final AuthHelper _authHelper = AuthHelper();
   final logger = AppLogger("Login").getLogger();
-
-  void handleSignIn() async {
-    bool authResult = await userController.signInUser(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    if (!authResult) {
-      Get.snackbar(
-        "Failed Login",
-        userController.getUser().authErrorMessage,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    } else {
-      Get.snackbar(
-        "Login Successful",
-        "Welcome ${userController.getUser().name}",
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-
-      Get.toNamed("/home");
-    }
-  }
-
-  void handleSignUp() async {
-    bool authRes = await userController.signUpUser(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    logger.info("---- about to create user in db, auth res is $authRes");
-
-    if (!authRes) {
-      logger.severe("Unable to register new user in database");
-      Get.snackbar(
-          "Failed Registration", userController.getUser().authErrorMessage);
-    } else {
-      bool isUserCreated =
-          await _userService.createUser(userController.getUser());
-
-      if (isUserCreated) {
-        Get.snackbar(
-          "Registration Successful",
-          "User created successfully",
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-
-        Get.toNamed("/home");
-      } else {
-        Get.snackbar(
-          "Failed Registration",
-          "Please try again after sometime.",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,8 +110,19 @@ class MyMaterialLogin extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       userController.getUser().isNewUser
-                          ? handleSignUp()
-                          : handleSignIn();
+                          ? _authHelper.handleSignUp(
+                              userController,
+                              _userService,
+                              _emailController.text,
+                              _passwordController.text,
+                              false,
+                            )
+                          : _authHelper.handleSignIn(
+                              userController,
+                              _emailController.text,
+                              _passwordController.text,
+                              false,
+                            );
                     },
                     child: Text(
                       userController.getUser().isNewUser ? 'Register' : 'Login',
