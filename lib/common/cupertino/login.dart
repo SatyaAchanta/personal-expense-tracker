@@ -76,7 +76,6 @@ class MyCupertinoLogin extends StatelessWidget {
                       () => CupertinoCheckbox(
                         value: userController.getUser().isNewUser,
                         onChanged: (val) {
-                          print("val : ${val}");
                           userController.setIsNewUser(val!);
                         },
                       ),

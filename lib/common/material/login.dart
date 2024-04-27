@@ -32,6 +32,7 @@ class MyMaterialLogin extends StatelessWidget {
                   horizontal: screenSize.width * 0.1,
                 ),
                 child: Text(
+                  key: const Key('loginTitle'),
                   'Login',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
@@ -125,6 +126,7 @@ class MyMaterialLogin extends StatelessWidget {
                             );
                     },
                     child: Text(
+                      key: const Key('loginButton'),
                       userController.getUser().isNewUser ? 'Register' : 'Login',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
