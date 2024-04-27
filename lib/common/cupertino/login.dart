@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:personal_expense_tracker/utils/screen.dart';
 
 import '../../controllers/expense_app_user.dart';
 import '../../services/user.dart';
+import '../../utils/auth.dart';
 import '../../utils/logger.dart';
+import '../../utils/screen.dart';
 import '../../utils/text.dart';
 
 class MyCupertinoLogin extends StatelessWidget {
@@ -15,68 +16,8 @@ class MyCupertinoLogin extends StatelessWidget {
   final ExpenseAppUserController userController =
       Get.put(ExpenseAppUserController());
   final UserService _userService = Get.put(UserService());
+  final AuthHelper _authHelper = AuthHelper();
   final logger = AppLogger("Login").getLogger();
-
-  void handleSignIn() async {
-    bool authResult = await userController.signInUser(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    if (!authResult) {
-      Get.snackbar(
-        "Failed Login",
-        userController.getUser().authErrorMessage,
-        backgroundColor: CupertinoColors.systemRed,
-        colorText: CupertinoColors.systemGrey6,
-      );
-    } else {
-      Get.snackbar(
-        "Login Successful",
-        "Welcome ${userController.getUser().name}",
-        backgroundColor: CupertinoColors.systemGreen,
-        colorText: CupertinoColors.systemGrey6,
-      );
-
-      Get.toNamed("/home");
-    }
-  }
-
-  void handleSignUp() async {
-    bool authRes = await userController.signUpUser(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    logger.info("---- about to create user in db, auth res is $authRes");
-
-    if (!authRes) {
-      logger.severe("Unable to register new user in database");
-      Get.snackbar(
-          "Failed Registration", userController.getUser().authErrorMessage);
-    } else {
-      bool isUserCreated =
-          await _userService.createUser(userController.getUser());
-
-      if (isUserCreated) {
-        Get.snackbar(
-          "Registration Successful",
-          "User created successfully",
-          backgroundColor: CupertinoColors.systemGreen,
-          colorText: CupertinoColors.systemGrey6,
-        );
-
-        Get.toNamed("/home");
-      } else {
-        Get.snackbar(
-          "Failed Registration",
-          "Please try again after sometime.",
-          backgroundColor: CupertinoColors.systemRed,
-          colorText: CupertinoColors.systemGrey6,
-        );
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +76,6 @@ class MyCupertinoLogin extends StatelessWidget {
                       () => CupertinoCheckbox(
                         value: userController.getUser().isNewUser,
                         onChanged: (val) {
-                          print("val : ${val}");
                           userController.setIsNewUser(val!);
                         },
                       ),
@@ -155,8 +95,19 @@ class MyCupertinoLogin extends StatelessWidget {
                   ),
                   onPressed: () {
                     userController.getUser().isNewUser
-                        ? handleSignUp()
-                        : handleSignIn();
+                        ? _authHelper.handleSignUp(
+                            userController,
+                            _userService,
+                            _emailController.text,
+                            _passwordController.text,
+                            true,
+                          )
+                        : _authHelper.handleSignIn(
+                            userController,
+                            _emailController.text,
+                            _passwordController.text,
+                            true,
+                          );
                   },
                 ),
               ),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:personal_expense_tracker/utils/text.dart';
 
 import '../../controllers/expense_app_user.dart';
 

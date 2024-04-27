@@ -26,7 +26,7 @@ class MyCupertinoDashboard extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: screenSize.height * 0.01),
               child: Text(
-                'Welcome ${username}',
+                'Welcome $username',
                 style: MyTextStyles.labelLargeBold,
               ),
             ),

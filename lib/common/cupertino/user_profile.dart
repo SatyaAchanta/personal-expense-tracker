@@ -83,21 +83,21 @@ class MyCupertinoUserProfile extends StatelessWidget {
                 ),
                 title: const Text("Categories"),
                 trailing: const CupertinoListTileChevron(),
-                onTap: () => Get.to(UserCategories()),
+                onTap: () => Get.to(const UserCategories()),
               ),
               CupertinoListTile(
                 padding: EdgeInsets.symmetric(
                   vertical: screenSize.height * 0.01,
                 ),
-                title: Text("Developer"),
-                trailing: CupertinoListTileChevron(),
+                title: const Text("Developer"),
+                trailing: const CupertinoListTileChevron(),
               ),
               CupertinoListTile(
                 padding: EdgeInsets.symmetric(
                   vertical: screenSize.height * 0.01,
                 ),
-                title: Text("Feedback"),
-                trailing: CupertinoListTileChevron(),
+                title: const Text("Feedback"),
+                trailing: const CupertinoListTileChevron(),
               ),
               CupertinoListTile(
                 padding: EdgeInsets.symmetric(

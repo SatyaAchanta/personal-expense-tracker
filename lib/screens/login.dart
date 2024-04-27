@@ -8,6 +8,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isIos = Theme.of(context).platform == TargetPlatform.iOS;
+    print('isIos: $isIos');
     return isIos ? MyCupertinoLogin() : MyMaterialLogin();
   }
 }

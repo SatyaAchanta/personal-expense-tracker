@@ -170,7 +170,7 @@ class MyMaterialUserProfile extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () {
-                Get.to(UserFeedbackMaterial());
+                Get.to(const UserFeedbackMaterial());
               },
             ),
           ),
