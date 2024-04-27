@@ -43,6 +43,7 @@ class MyMaterialLogin extends StatelessWidget {
                   horizontal: screenSize.width * 0.1,
                 ),
                 child: TextField(
+                  key: const Key('emailField'),
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   style: Theme.of(context).textTheme.bodyMedium,
@@ -63,6 +64,7 @@ class MyMaterialLogin extends StatelessWidget {
                   horizontal: screenSize.width * 0.1,
                 ),
                 child: TextField(
+                  key: const Key('passwordField'),
                   obscureText: true,
                   style: Theme.of(context).textTheme.bodyMedium,
                   controller: _passwordController,

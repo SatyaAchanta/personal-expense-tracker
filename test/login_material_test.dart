@@ -27,6 +27,17 @@ void main() {
 
     const titleKey = Key('loginTitle');
     const loginButtonKey = Key('loginButton');
+    const emailFieldKey = Key('emailField');
+    const passwordFieldKey = Key('passwordField');
+
+    await tester.enterText(
+      find.byKey(emailFieldKey),
+      'widget-tests@gmail.com',
+    );
+    await tester.enterText(
+      find.byKey(passwordFieldKey),
+      'widget-tests@gmail.com',
+    );
 
     // Verify that our title is displayed.
     expect(find.byKey(titleKey), findsOneWidget);
