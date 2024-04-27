@@ -88,6 +88,7 @@ class MyMaterialLogin extends StatelessWidget {
                     horizontal: screenSize.width * 0.05,
                   ),
                   child: CheckboxListTile(
+                    key: const Key('newUserCheckbox'),
                     selectedTileColor: Color(Colors.blue.value),
                     controlAffinity: ListTileControlAffinity.leading,
                     title: Text(
