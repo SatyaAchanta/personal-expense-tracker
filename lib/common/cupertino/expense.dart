@@ -52,7 +52,6 @@ class ExpenseDetailCupertino extends StatelessWidget {
     String? title;
     double? amount;
     String? place;
-    String? date;
     String? category;
     String? description;
     final currentExpense = expenseController.findExpense(expenseId);

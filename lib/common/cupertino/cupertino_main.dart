@@ -27,7 +27,6 @@ class MyCupertinoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = getScreenSize(context);
     return GetCupertinoApp(
       title: 'Personal Expense Tracker - iOS',
       theme: CupertinoThemeData(

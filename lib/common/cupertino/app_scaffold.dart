@@ -15,10 +15,8 @@ class MyCupertinoScaffold extends StatelessWidget {
     Dashboard(),
     const ExpenseList(),
     ExpenseForm(),
-    Profile(),
+    const Profile(),
   ];
-
-  final List<String> _titles = ['Home', 'Expenses', 'Add Expense', 'profile'];
 
   @override
   Widget build(BuildContext context) {
