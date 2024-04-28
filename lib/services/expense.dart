@@ -7,8 +7,20 @@ class ExpenseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final logger = AppLogger('ExpenseService').getLogger();
 
-  Future<List<Expense>> getExpenses() async {
-    return [];
+  Future<List<Expense>> getExpenses(String uid) async {
+    try {
+      final snapshot =
+          await _firestore.collection('user-expenses').doc(uid).get();
+      if (snapshot.exists) {
+        final data = snapshot.data();
+        final expenses = data!['expenses'] as List;
+        return expenses.map((e) => Expense.fromJson(e)).toList();
+      }
+      return [];
+    } catch (e) {
+      logger.severe("Get expenses failed, due to ${e.toString()}");
+      return [];
+    }
     // Fetch data from API
   }
 
