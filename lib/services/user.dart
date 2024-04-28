@@ -9,12 +9,10 @@ class UserService {
 
   Future<bool> createUser(ExpenseAppUser user) async {
     try {
-      await _firestore.collection('users').doc(user.email).set(user.toJson());
+      await _firestore.collection('users').doc(user.id).set(user.toJson());
 
       return true;
     } catch (e) {
-      print("--- failed to write user info into the database");
-      print(e.toString());
       logger.severe("Unable to write user info into the database");
       logger.severe(e.toString());
       return false;
