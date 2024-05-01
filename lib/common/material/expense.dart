@@ -116,8 +116,8 @@ class ExpenseDetailMaterial extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.05),
                   child: ElevatedButton(
-                    onPressed: () {
-                      expenseController.updateExpense(
+                    onPressed: () async {
+                      bool res = await expenseController.updateExpense(
                         Expense(
                           id: expense.id,
                           title: titleController.text,
@@ -130,7 +130,13 @@ class ExpenseDetailMaterial extends StatelessWidget {
                           category: categoryController.text,
                         ),
                       );
-                      Get.back();
+
+                      if (res) {
+                        Get.snackbar("Update Success", "");
+                        Get.back();
+                      } else {
+                        Get.snackbar("Update Failed", "Please try again");
+                      }
                     },
                     child: Text(
                       'Update',

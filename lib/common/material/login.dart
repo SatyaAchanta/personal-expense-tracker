@@ -143,13 +143,24 @@ class MyMaterialLogin extends StatelessWidget {
                 ),
               ),
               Container(
+                decoration: const BoxDecoration(
+                  border: null,
+                ),
                 width: screenSize.width,
                 height: screenSize.height * 0.05,
                 margin: EdgeInsets.symmetric(
                   vertical: screenSize.height * 0.01,
                   horizontal: screenSize.width * 0.1,
                 ),
-                child: OutlinedButton(
+                child: FilledButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
                   onPressed: () async {
                     await userController.signInWithGoogle();
                   }, // Replace with your Google logo asset

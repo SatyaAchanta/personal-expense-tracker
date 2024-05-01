@@ -6,11 +6,13 @@ class MyMaterialTextFormField extends StatelessWidget {
   const MyMaterialTextFormField({
     super.key,
     required this.controller,
+    required this.onChanged,
     this.placeholder,
     this.keyboardType = TextInputType.text,
   });
 
   final TextEditingController controller;
+  final Function(String) onChanged;
   final String? placeholder;
   final TextInputType? keyboardType;
 
@@ -42,8 +44,8 @@ class MyMaterialTextFormField extends StatelessWidget {
         ),
         style: Theme.of(context).textTheme.bodyMedium,
         validator: (value) => value!.isEmpty ? 'Please enter a title' : null,
-        textInputAction: TextInputAction.next,
         keyboardType: keyboardType,
+        onChanged: onChanged,
       ),
     );
   }
