@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
+import 'package:personal_expense_tracker/services/expense.dart';
 import '../models/expense.dart';
 import 'expense_app_user.dart';
 
@@ -9,8 +10,15 @@ class ExpenseController extends GetxController {
   final expenses = <Map<String, dynamic>>[].obs;
   final log = Logger('ExpenseController');
 
+  @override
+  void onInit() {
+    super.onInit();
+    initializeUserExpenses();
+  }
+
   final ExpenseAppUserController userController =
       Get.put(ExpenseAppUserController());
+  final ExpenseService _expenseService = Get.put(ExpenseService());
 
   String getRandomCategory() {
     Random random = Random();
@@ -18,42 +26,49 @@ class ExpenseController extends GetxController {
     return userController.categories[index].toLowerCase();
   }
 
-  @override
-  void onInit() {
-    // for (int i = 0; i < 20; i++) {
-    //   final expense = {
-    //     "id": faker.guid.guid(),
-    //     "title": faker.lorem.word(),
-    //     "amount": faker.randomGenerator.decimal(scale: 2),
-    //     "date": faker.date
-    //         .dateTime(minYear: 202, maxYear: 2025)
-    //         .millisecondsSinceEpoch,
-    //     "description": faker.lorem.sentence(),
-    //     "place": faker.address.city(),
-    //     "category": getRandomCategory(),
-    //     "isFlagged": faker.randomGenerator.boolean(),
-    //     "isFavorite": faker.randomGenerator.boolean(),
-    //   };
-    //   expenses.add(expense);
-    // }
-    super.onInit();
-  }
-
   void setExpenses(List<Map<String, dynamic>> expenses) {
     this.expenses.value = expenses;
   }
 
-  void addExpense(Map<String, dynamic> expense) {
+  void addExpense(Map<String, dynamic> expense) async {
     log.info(expense);
-    expenses.add(expense);
+    bool isAdded = await _expenseService.addExpense(
+      Expense.fromJson(expense),
+      userController.user.value.id,
+    );
+
+    if (isAdded) {
+      expenses.add(expense);
+      log.info('Expense added successfully');
+    } else {
+      log.severe('Failed to add expense');
+    }
   }
 
-  void removeExpense(String expenseId) {
-    expenses.removeWhere((expense) => expense['id'] == expenseId);
+  void removeExpense(String expenseId) async {
+    bool isDeleted = await _expenseService.removeExpense(
+      expenseId,
+      userController.user.value.id,
+    );
+    if (isDeleted) {
+      expenses.removeWhere((expense) => expense['id'] == expenseId);
+      log.info('Expense removed successfully');
+    } else {
+      log.severe('Failed to remove expense');
+    }
   }
 
-  List<Map<String, dynamic>> getExpenses() {
-    return expenses;
+  Future<void> initializeUserExpenses() async {
+    try {
+      final userExpenses = await _expenseService.getExpenses(
+        userController.user.value.id,
+      );
+      expenses.addAll(userExpenses.map((e) => e.toJson()).toList());
+      log.info('User expenses initialized successfully');
+      update();
+    } catch (e) {
+      log.severe('Failed to initialize user expenses');
+    }
   }
 
   List<Expense> getExpensesAsModel() {
@@ -61,14 +76,24 @@ class ExpenseController extends GetxController {
   }
 
   Expense findExpense(String expenseId) {
-    return Expense.fromJson(
-        expenses.firstWhere((expense) => expense['id'] == expenseId));
+    return Expense.fromJson(expenses.firstWhere((e) => e['id'] == expenseId));
   }
 
-  Expense updateExpense(Expense expense) {
-    final index = expenses.indexWhere((e) => e['id'] == expense.id);
-    expenses[index] = expense.toJson();
-    return expense;
+  Future<bool> updateExpense(Expense expense) async {
+    bool isUpdated = await _expenseService.updateExpense(
+      expense,
+      userController.user.value.id,
+    );
+
+    if (isUpdated) {
+      expenses[expenses.indexWhere((e) => e['id'] == expense.id)] =
+          expense.toJson();
+      log.info('Expense updated successfully');
+      return true;
+    } else {
+      log.severe('Failed to update expense');
+      return false;
+    }
   }
 
   double getTotalExpenses() {
@@ -90,6 +115,7 @@ class ExpenseController extends GetxController {
       }
     }
 
+    print("----- total expenses: ${groupedExpenses.entries.toList().length}");
     return groupedExpenses.entries.toList();
   }
 

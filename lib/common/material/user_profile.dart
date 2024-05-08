@@ -73,7 +73,7 @@ class MyMaterialUserProfile extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   Text(
-                    'Reset on 1st of every month',
+                    'Resets on 1st of every month',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],

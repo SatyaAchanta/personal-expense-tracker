@@ -5,26 +5,42 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:personal_expense_tracker/common/material/date_picker.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../controllers/expense.dart';
 import '../../controllers/expense_app_user.dart';
 import 'text_form_field.dart';
 
-class MyMaterialForm extends StatelessWidget {
-  MyMaterialForm({super.key});
+class MyMaterialForm extends StatefulWidget {
+  const MyMaterialForm({super.key});
 
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  State<MyMaterialForm> createState() => _MyMaterialFormState();
+}
+
+class _MyMaterialFormState extends State<MyMaterialForm> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController placeController = TextEditingController();
+
   final TextEditingController priceController = TextEditingController();
+
   final TextEditingController dateController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
 
   final ExpenseController expenseController = Get.put(ExpenseController());
+
   final ExpenseAppUserController userController =
       Get.put(ExpenseAppUserController());
+
   final logger = Logger('MyMaterialForm');
+
   final DateFormat format = DateFormat("MM/dd/yyyy");
+
+  final Uuid uuid = const Uuid();
 
   String getRandomCategory() {
     Random random = Random();
@@ -32,18 +48,48 @@ class MyMaterialForm extends StatelessWidget {
     return userController.categories[index].toLowerCase();
   }
 
-  void onDateSelected(DateTime pickedDate) {
-    dateController.text = format.format(pickedDate);
+  onPurchaseNameChanged(String value) {
+    setState(() {
+      titleController.text = value;
+    });
+  }
+
+  onPlaceChanged(String value) {
+    setState(() {
+      placeController.text = value;
+    });
+  }
+
+  onPriceChanged(String value) {
+    setState(() {
+      priceController.text = value;
+    });
+  }
+
+  onDateSelected(DateTime pickedDate) {
+    setState(() {
+      dateController.text = format.format(pickedDate);
+      // dateController.value = TextEditingValue(
+      //   text: format.format(pickedDate),
+      // );
+    });
+  }
+
+  onDescriptionChanged(String value) {
+    setState(() {
+      descriptionController.text = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     Size screenSize = mediaQuery.size;
-    dateController.value =
-        TextEditingValue(text: format.format(DateTime.now()));
+    dateController.value = TextEditingValue(
+      text: format.format(DateTime.now()),
+    );
     return Form(
-      key: _formKey,
+      key: MyMaterialForm._formKey,
       child: Column(
         children: [
           Center(
@@ -58,15 +104,17 @@ class MyMaterialForm extends StatelessWidget {
           MyMaterialTextFormField(
             controller: titleController,
             placeholder: 'Purchase Name',
+            onChanged: onPurchaseNameChanged,
           ),
           MyMaterialTextFormField(
             controller: placeController,
             placeholder: 'Place of purchase',
+            onChanged: onPlaceChanged,
           ),
           MyMaterialTextFormField(
             controller: priceController,
             placeholder: 'Amount',
-            keyboardType: TextInputType.number,
+            onChanged: onPriceChanged,
           ),
           Container(
             margin: EdgeInsets.symmetric(
@@ -88,6 +136,7 @@ class MyMaterialForm extends StatelessWidget {
           MyMaterialTextFormField(
             controller: descriptionController,
             placeholder: 'notes',
+            onChanged: onDescriptionChanged,
           ),
           Container(
             margin: EdgeInsets.only(
@@ -98,29 +147,20 @@ class MyMaterialForm extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 logger.info('Save button pressed');
-                // if (_formKey.currentState!.validate()) {
-                //   print("form is valid");
-                //   // expenseController.addExpense({
-                //   //   'title': "Sample",
-                //   //   'place': "Home",
-                //   //   'price': 12,
-                //   //   'date': '2024/01/01',
-                //   //   'description': 'testing',
-                //   // });
-                //   // print('Title: ${_titleController.text}');
-                //   // print('Place: ${_placeController.text}');
-                //   // print('Price: ${_priceController.text}');
-                //   // print('Date: ${_dateController.text}');
-                //   // print('Description: ${_descriptionController.text}');
-                //   expenseController.addExpense({
-                //     'id': Random().nextInt(100).toString(),
-                //     'title': "Sample ${Random().nextInt(10).toString()}",
-                //     'place': "Home",
-                //     'amount': 12.toDouble(),
-                //     'date': DateTime.now(),
-                //     'description': 'testing',
-                //   });
-                // }
+                if (MyMaterialForm._formKey.currentState!.validate()) {
+                  print("---dateController.text--- ${dateController.text}");
+                  print("------ amount ${double.parse(priceController.text)}");
+                  expenseController.addExpense({
+                    'id': uuid.v4(),
+                    'title': titleController.text,
+                    'place': placeController.text,
+                    'amount': double.parse(priceController.text),
+                    'date': format
+                        .parse(dateController.text)
+                        .millisecondsSinceEpoch,
+                    'description': descriptionController.text,
+                  });
+                }
               },
               child: Text(
                 'Save',

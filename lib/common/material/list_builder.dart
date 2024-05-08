@@ -38,9 +38,11 @@ class MyMaterialListBuilder extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             subtitle: Text(
-              format.format(DateTime.fromMillisecondsSinceEpoch(
-                expenses[index].date,
-              )),
+              format.format(
+                DateTime.fromMillisecondsSinceEpoch(
+                  expenses[index].date,
+                ),
+              ),
               style: Theme.of(context).textTheme.titleSmall,
             ),
             onTap: () => {
@@ -50,13 +52,13 @@ class MyMaterialListBuilder extends StatelessWidget {
                 ),
               ),
             },
-            trailing: Text(
-              "\$${expenses[index].amount.toStringAsFixed(2)}",
-              style: TextStyle(
-                fontSize: screenSize.width * 0.05,
-                color: Colors.blue,
-              ),
-            ),
+            // trailing: Text(
+            //   "\$${expenses[index].amount.toStringAsFixed(2)}",
+            //   style: TextStyle(
+            //     fontSize: screenSize.width * 0.05,
+            //     color: Colors.blue,
+            //   ),
+            // ),
           ),
         );
       },

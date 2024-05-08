@@ -29,9 +29,9 @@ class Expense {
       date: json['date'],
       place: json['place'],
       description: json['description'],
-      category: json['category'],
-      isFlagged: json['isFlagged'],
-      isFavorite: json['isFavorite'],
+      category: json['category'] ?? 'others',
+      isFlagged: json['isFlagged'] ?? false,
+      isFavorite: json['isFavorite'] ?? false,
     );
   }
 
